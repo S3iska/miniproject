@@ -1,0 +1,2 @@
+# Ohtu-kurssin miniprojekti
+
