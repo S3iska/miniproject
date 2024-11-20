@@ -8,7 +8,7 @@
 
 ### Asennus
 
-1. Kloonaa repositorio ja tuotuun hakemistoon:
+1. Kloonaa repositorio ja siirry luotuun hakemistoon:
    ```
    git clone https://github.com/S3iska/miniproject.git
    cd miniproject
