@@ -1,4 +1,5 @@
 #!/bin/bash
+export PYTHONPATH=$(pwd)/src
 
 echo "Running tests"
 
