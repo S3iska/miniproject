@@ -8,7 +8,7 @@ from entities.ref import Ref
 
 @app.route("/")
 def index():
-    return "Test"
+    return render_template("index.html")
 
 
 # testausta varten oleva reitti
