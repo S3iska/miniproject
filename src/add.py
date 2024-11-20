@@ -5,12 +5,12 @@ from util import validate_ref, UserInputError
 
 
 def add_ref(req: request):
-    ref_type = request.form.get("type")
-    ref_author = request.form.get("author")
-    ref_title = request.form.get("title")
-    ref_year = int(request.form.get("year"))
-    ref_publisher = request.form.get("publisher")
-    ref_name = request.form.get("refname")
+    ref_type = req.form.get("type")
+    ref_author = req.form.get("author")
+    ref_title = req.form.get("title")
+    ref_year = int(req.form.get("year"))
+    ref_publisher = req.form.get("publisher")
+    ref_name = req.form.get("refname")
 
     new_ref = Ref(None, ref_type, ref_name, ref_author, ref_title, ref_year, ref_publisher)
 
