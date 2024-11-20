@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Add references{% endblock %}
+
+{% block body %}
+<form action="/add" method="POST">
+    <h2>Add an article reference</h2>
+    <input type="hidden" name="type" value="article"/>
+    Reference name: <input type="text" name="refname"/></br>
+    Author: <input type="text" name="author"/></br>
+    Title: <input type="text" name="title"/></br>
+    Year: <input type="number" name="year"/></br>
+    Published: <input type="text" name="refname"/></br>
+    <button type="submit">Add</button>
+</form>
+{% endblock %}
