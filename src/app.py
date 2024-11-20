@@ -3,6 +3,7 @@ from db_helper import reset_db
 from config import app, test_env
 from util import validate_ref
 from repositories.ref_repository import create_ref
+from entities.ref import Ref
 
 
 @app.route("/")
