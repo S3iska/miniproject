@@ -5,7 +5,7 @@ Library  SeleniumLibrary
 ${SERVER}     localhost:5001
 ${DELAY}      0.5 seconds
 ${HOME_URL}   http://${SERVER}
-${RESET_URL}  http://${SERVER}/reset_db
+${ADD_URL}    http://${SERVER}/add
 ${BROWSER}    chrome
 ${HEADLESS}   false
 
@@ -24,6 +24,9 @@ Open And Configure Browser
     END
     Open Browser  browser=${BROWSER}  options=${options}
 
-Reset Todos
-    Go To  ${RESET_URL}
+Go To Add Article Page
+    Go To  ${HOME_URL}
+    Title Should Be  Miniproject
+    Click Link  Add a new reference
+    Location Should Be  ${ADD_URL}
 
