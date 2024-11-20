@@ -1,7 +1,7 @@
 from config import db, app
 from sqlalchemy import text
 
-table_name = "todos"
+table_name = "refs"
 
 def table_exists(name):
   sql_table_existence = text(
@@ -33,11 +33,15 @@ def setup_db():
 
   print(f"Creating table {table_name}")
   sql = text(
-    f"CREATE TABLE {table_name} ("
-    "  id SERIAL PRIMARY KEY, "
-    "  content TEXT NOT NULL,"
-    "  done BOOLEAN DEFAULT FALSE"
-    ")"
+    """CREATE TABLE refs (
+        id SERIAL PRIMARY KEY,
+        type TEXT NOT NULL,
+        refname TEXT NOT NULL,
+        author TEXT NOT NULL,
+        title TEXT NOT NULL,
+        year INTEGER NOT NULL,
+        publisher TEXT
+    );"""
   )
 
   db.session.execute(sql)
