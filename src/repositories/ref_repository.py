@@ -1,7 +1,7 @@
 from config import db
 from sqlalchemy import text
 
-from entities.Ref import Ref
+from entities.ref import Ref
 
 
 def get_refs():
@@ -15,12 +15,11 @@ def get_refs():
 
 def create_ref(ref: Ref):
     sql = text("""
-        INSERT INTO todos (id, type, ref_name, author, title, year, publisher)
-        VALUES (:id, :type, :ref_name, :author, :title, :year, :publisher)
+        INSERT INTO refs (type, ref_name, author, title, year, publisher)
+        VALUES (:type, :ref_name, :author, :title, :year, :publisher)
     """)
     db.session.execute(sql, {
-        "id": ref.id,
-        "type": ref.type,
+        "type": ref.ref_type,
         "ref_name": ref.ref_name,
         "author": ref.author,
         "title": ref.title,

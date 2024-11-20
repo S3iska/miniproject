@@ -1,7 +1,7 @@
 class Ref:
-    def __init__(self, id, type_, ref_name, author, title, year, publisher):
+    def __init__(self, id, ref_type, ref_name, author, title, year, publisher):
         self.id = id
-        self.type = type_
+        self.ref_type = ref_type
         self.ref_name = ref_name
         self.author = author
         self.title = title
