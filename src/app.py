@@ -21,9 +21,4 @@ if test_env:
 def route_add():
     if request.method == "GET":
         return render_template("add.html")
-    try:
-        add_ref(request)
-    except Exception as e:
-        raise e
-
-    return redirect("/")
+    return add_ref(request)

@@ -1,7 +1,7 @@
-from flask import request
+from flask import request, redirect
 from entities.ref import Ref
 from repositories.ref_repository import create_ref
-from util import validate_ref
+from util import validate_ref, UserInputError
 
 
 def add_ref(req: request):
@@ -17,5 +17,7 @@ def add_ref(req: request):
     try:
         validate_ref(new_ref)
         create_ref(new_ref)
-    except Exception as e:
-        raise e
+    except Exception:
+        return "Could not add reference"
+
+    return redirect("/")
