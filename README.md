@@ -38,9 +38,22 @@
    ```
    python3 src/index.py
    ```
+   
+### Testien ajaminen virtuaaliympäristössä
+- Yksikkötestien ajaminen:
+
+   ```
+   pytest src/tests
+   ```
+- Robot testien ajaminen:
+   ```
+   robot src/story_tests
+   ```
 
 ## Definition of done
   - User storyn taskit done tilassa
-  - Asiakas näkee lähdekoodin ja testien tilanteen
+  - Vaatimus on integroitu onnistuneesti
+  - Asiakas näkee ajan tasalla olevan lähdekoodin
+  - Asiakas näkee testien tilan CI-palvelun kautta
   - Koodi noudattaa määriteltyjä tyylivaatimuksia
-  - Testit automatisoitu
+  - Testit menevät läpi ja ovat automatisoitu
