@@ -29,6 +29,10 @@ def validate_ref(ref: Ref):
 
     if not ref.ref_name:
         raise UserInputError("Reference name is required.")
+    if not len(ref.title) <= 100:
+        raise UserInputError(
+            "Reference name must be less than 100 characters long."
+        )
 
     if ref.ref_type == "article":
         validate_article_ref(ref)
