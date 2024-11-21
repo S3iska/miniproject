@@ -3,6 +3,16 @@ from sqlalchemy import text
 
 from entities.ref import Ref
 
+def ref_from_row(row):
+    return Ref(
+        id = row.id,
+        ref_type = row.type,
+        ref_name = row.ref_name,
+        author = row.author,
+        title = row.title,
+        year = row.year,
+        publisher = row.publisher
+    )
 
 def get_refs():
     result = db.session.execute(text("""
@@ -10,7 +20,8 @@ def get_refs():
         FROM refs
     """))
     refs = result.fetchall()
-    return [Ref(ref[0], ref[1], ref[2], ref[3], ref[4], ref[5], ref[6]) for ref in refs] 
+
+    return [ref_from_row(ref) for ref in refs] 
 
 
 def get_selected_refs(**kwargs):
@@ -42,7 +53,7 @@ def get_selected_refs(**kwargs):
     result = db.session.execute(text(query), params)
     refs = result.fetchall()
     
-    return [Ref(*ref) for ref in refs]
+    return [ref_from_row(ref) for ref in refs]
 
 
 def create_ref(ref: Ref):

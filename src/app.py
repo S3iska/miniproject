@@ -23,14 +23,22 @@ if test_env:
 def route_add():
     if request.method == "GET":
         return render_template("add.html")
+
     ref_type = request.form.get("type")
+    ref_name = request.form.get("refname")
     ref_author = request.form.get("author")
     ref_title = request.form.get("title")
     ref_year = int(request.form.get("year"))
     ref_publisher = request.form.get("publisher")
-    ref_name = request.form.get("refname")
 
-    new_ref = Ref(None, ref_type, ref_name, ref_author, ref_title, ref_year, ref_publisher)
+    new_ref = Ref(
+        ref_type = ref_type,
+        ref_name = ref_name,
+        author = ref_author,
+        title = ref_title,
+        year = ref_year,
+        publisher = ref_publisher
+    )
 
     try:
         validate_ref(new_ref)
