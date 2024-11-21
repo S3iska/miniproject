@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, jsonify, flash
+from flask import redirect, render_template, request, jsonify
 from db_helper import reset_db
 from config import app, test_env
 from util import validate_ref
@@ -9,14 +9,6 @@ from entities.ref import Ref
 @app.route("/")
 def index():
     return render_template("index.html")
-
-
-# testausta varten oleva reitti
-if test_env:
-    @app.route("/reset_db")
-    def reset_database():
-        reset_db()
-        return jsonify({'message': "db reset"})
 
 
 @app.route("/add", methods=["GET", "POST"])
@@ -47,3 +39,11 @@ def route_add():
         return "Could not add reference"
 
     return redirect("/")
+
+
+
+if test_env:
+    @app.route("/reset_db")
+    def reset_database():
+        reset_db()
+        return jsonify({'message': "db reset"})

@@ -1,7 +1,7 @@
-from config import db
 from sqlalchemy import text
-
+from config import db
 from entities.ref import Ref
+
 
 def ref_from_row(row):
     return Ref(
@@ -14,6 +14,7 @@ def ref_from_row(row):
         publisher = row.publisher
     )
 
+
 def get_refs():
     result = db.session.execute(text("""
         SELECT id, type, ref_name, author, title, year, publisher
@@ -21,7 +22,7 @@ def get_refs():
     """))
     refs = result.fetchall()
 
-    return [ref_from_row(ref) for ref in refs] 
+    return [ref_from_row(ref) for ref in refs]
 
 
 def get_selected_refs(**kwargs):
@@ -36,23 +37,25 @@ def get_selected_refs(**kwargs):
         SELECT id, type, ref_name, author, title, year, publisher
         FROM refs
     """
-    
-    valid_fields = ['id', 'type', 'ref_name', 'author', 'title', 'year', 'publisher']
-    
+
+    valid_fields = [
+        'id', 'type', 'ref_name', 'author', 'title', 'year', 'publisher'
+    ]
+
     conditions = []
     params = {}
-    
+
     for field in valid_fields:
         if field in kwargs and kwargs[field] is not None:
             conditions.append(f"{field} = :{field}")
             params[field] = kwargs[field]
-    
+
     if conditions:
         query += " WHERE " + " AND ".join(conditions)
-    
+
     result = db.session.execute(text(query), params)
     refs = result.fetchall()
-    
+
     return [ref_from_row(ref) for ref in refs]
 
 

@@ -10,14 +10,14 @@ def validate_article_ref(ref: Ref):
         raise UserInputError(
             "Author name must be between 3 and 100 characters long"
         )
-    
+
     if not ref.title:
         raise UserInputError("Title field is required.")
     if not 3 <= len(ref.title) <= 250:
         raise UserInputError(
             "Title must be between 3 and 250 characters long"
         )
-    
+
     if not ref.year:
         raise UserInputError("Year field is required.")
     if not 1600 < ref.year < 2100:
@@ -26,7 +26,7 @@ def validate_article_ref(ref: Ref):
 def validate_ref(ref: Ref):
     if not ref.ref_type:
         raise UserInputError("Reference type is required.")
-    
+
     if not ref.ref_name:
         raise UserInputError("Reference name is required.")
 
