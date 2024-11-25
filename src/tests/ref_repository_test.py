@@ -5,11 +5,13 @@ from entities.ref import Ref
 from config import db
 from sqlalchemy import text
 from app import app
+from db_helper import setup_db
 
 
 class TestRefRepo(unittest.TestCase):
     def setUp(self):
         with app.app_context():
+            setup_db()
             self.mock_db = Mock()
             query = text("SELECT * FROM refs")
             mock_result = db.session.execute(query)
