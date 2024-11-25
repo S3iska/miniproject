@@ -4,6 +4,19 @@
 {% block body %}
 <a href="add">Add a new reference</a>
 
+<ul>
+    {% for ref in refs|sort(attribute='author')%}
+    <li>
+        <strong>Tyyppi:</strong> {{ ref.ref_type }}<br>
+        <strong>Otsikko:</strong> {{ ref.title }}<br>
+        <strong>Kirjoittaja:</strong> {{ ref.author }}<br>
+        <strong>Julkaisija:</strong> {{ ref.publisher }}<br>
+        <strong>Julkaisuvuosi:</strong> {{ ref.year }}<br>
+        <br>
+    </li>
+    {% endfor %}
+</ul>
+
 <form action="/delete_all" method="post">
     <input id="delete_button" type="submit" onclick="return confirm('HALUATKO POISTAA KAIKEN TIETOKANNASTA?')" value="NUKE">
 </form>
