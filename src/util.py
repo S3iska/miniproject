@@ -33,6 +33,10 @@ def validate_ref(ref: Ref):
         raise UserInputError(
             "Reference name must be less than 100 characters long."
         )
+    if not ref.ref_name.isalnum():
+        raise UserInputError(
+            "Refrerence name must only contain letters and numbers"
+        )
 
     if ref.ref_type == "article":
         validate_article_ref(ref)

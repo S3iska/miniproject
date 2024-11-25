@@ -8,7 +8,7 @@ class TestRefValidation(unittest.TestCase):
         self.valid_ref = Ref(
             id = None,
             ref_type = "article",
-            ref_name = "test ref",
+            ref_name = "REF65",
             author = "test author",
             title = "test title",
             year = 1997,
@@ -39,7 +39,14 @@ class TestRefValidation(unittest.TestCase):
         ref.ref_name = "a"*101
         with self.assertRaises(UserInputError):
             validate_ref(ref)
-    
+
+    def test_not_alphanumeric_ref_name_raises_error(self):
+        ref = copy(self.valid_ref)
+
+        ref.ref_name = "ref name"
+        with self.assertRaises(UserInputError):
+            validate_ref(ref)
+
     def test_missing_or_too_short_or_long_author_raises_error(self):
         ref = copy(self.valid_ref)
 
