@@ -1,8 +1,8 @@
-from flask import redirect, render_template, request, jsonify
+from flask import redirect, render_template, request, jsonify, make_response
 from db_helper import reset_db
 from config import app, test_env, db
 from util import validate_ref
-from repositories.ref_repository import create_ref, delete_all_refs
+from repositories.ref_repository import create_ref, delete_all_refs, get_refs
 from entities.ref import Ref
 
 
@@ -45,6 +45,12 @@ def route_add():
 def delete_all():
     delete_all_refs(db)
     return redirect("/")
+
+@app.route("/bibtex")
+def route_bibtex():
+    entries = list(map(lambda ref: ref.get_bibtex(), get_refs()))
+    headers = {"Content-Type": "text/plain","Accept":"text/plain"}
+    return make_response("\n\n".join(entries), 200, headers)
 
 
 if test_env:
