@@ -24,6 +24,11 @@ def setup_db():
         sql = text(file.read())
 
     db.session.execute(sql)
+    test_data_sql = text("SELECT 1;")
+    with open('test_data.sql', 'r', encoding="utf-8") as file:
+        test_data_sql = text(file.read())
+
+    db.session.execute(test_data_sql)
     db.session.commit()
 
 def reset_db():
