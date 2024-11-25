@@ -1,5 +1,4 @@
 from sqlalchemy import text
-from config import db
 from entities.ref import Ref
 
 
@@ -15,7 +14,7 @@ def ref_from_row(row):
     )
 
 
-def get_refs():
+def get_refs(db):
     result = db.session.execute(text("""
         SELECT id, type, ref_name, author, title, year, publisher
         FROM refs
@@ -25,7 +24,7 @@ def get_refs():
     return [ref_from_row(ref) for ref in refs]
 
 
-def get_selected_refs(**kwargs):
+def get_selected_refs(db, **kwargs):
     """
     Fetches rows from the 'refs' table based on provided filter criteria. If no
     filters are specified, all rows are retrieved. Filters can be passed as
@@ -59,7 +58,7 @@ def get_selected_refs(**kwargs):
     return [ref_from_row(ref) for ref in refs]
 
 
-def create_ref(ref: Ref):
+def create_ref(db, ref: Ref):
     sql = text("""
         INSERT INTO refs (type, ref_name, author, title, year, publisher)
         VALUES (:type, :ref_name, :author, :title, :year, :publisher)

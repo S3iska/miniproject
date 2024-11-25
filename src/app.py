@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, jsonify
 from db_helper import reset_db
-from config import app, test_env
+from config import app, test_env, db
 from util import validate_ref
 from repositories.ref_repository import create_ref
 from entities.ref import Ref
@@ -34,12 +34,12 @@ def route_add():
 
     try:
         validate_ref(new_ref)
-        create_ref(new_ref)
-    except Exception:
+        create_ref(db, new_ref)
+    except Exception as e:
+        print(e)
         return "Could not add reference"
 
     return redirect("/")
-
 
 
 if test_env:
