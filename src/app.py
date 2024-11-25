@@ -8,7 +8,7 @@ from entities.ref import Ref
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", refs=get_refs(db))
 
 
 @app.route("/add", methods=["GET", "POST"])
