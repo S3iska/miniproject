@@ -3,4 +3,8 @@
 
 {% block body %}
 <a href="add">Add a new reference</a>
+
+<form action="/delete_all" method="post">
+    <input id="delete_button" type="submit" onclick="return confirm('HALUATKO POISTAA KAIKEN TIETOKANNASTA?')" value="NUKE">
+</form>
 {% endblock %}

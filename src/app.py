@@ -2,7 +2,7 @@ from flask import redirect, render_template, request, jsonify
 from db_helper import reset_db
 from config import app, test_env, db
 from util import validate_ref
-from repositories.ref_repository import create_ref
+from repositories.ref_repository import create_ref, delete_all_refs
 from entities.ref import Ref
 
 
@@ -39,6 +39,11 @@ def route_add():
         print(e)
         return "Could not add reference"
 
+    return redirect("/")
+
+@app.route("/delete_all", methods=["POST"])
+def delete_all():
+    delete_all_refs(db)
     return redirect("/")
 
 

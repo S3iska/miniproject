@@ -72,3 +72,8 @@ def create_ref(db, ref: Ref):
         "publisher": ref.publisher
     })
     db.session.commit()
+
+def delete_all_refs(db):
+    sql = text("TRUNCATE refs")
+    db.session.execute(sql)
+    db.session.commit()
