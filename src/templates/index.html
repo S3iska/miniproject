@@ -2,19 +2,19 @@
 {% block title %}Miniproject{% endblock %}
 
 {% block body %}
-<a href="add">Lisää uusi viite</a>
+<a href="add">Add a new reference</a>
 
 <ul>
     {% for ref in refs|sort(attribute='author')%}
     <li> <hidden {{  ref.id  }} ></hidden>
-        <strong>Tyyppi:</strong> {{ ref.ref_type }}<br>
-        <strong>Otsikko:</strong> {{ ref.title }}<br>
-        <strong>Tekijä:</strong> {{ ref.author }}<br>
-        <strong>Julkaisija:</strong> {{ ref.publisher }}<br>
-        <strong>Julkaisuvuosi:</strong> {{ ref.year }}<br>
+        <strong>Type:</strong> {{ ref.ref_type }}<br>
+        <strong>Title:</strong> {{ ref.title }}<br>
+        <strong>Author:</strong> {{ ref.author }}<br>
+        <strong>Publisher:</strong> {{ ref.publisher }}<br>
+        <strong>Year:</strong> {{ ref.year }}<br>
         <br>
         <form action="/{{ ref.id }}/delete_ref" method="post">
-            <input id="delete_button" type="submit" onclick="return confirm('HUOM! Haluatko varmasti poistaa viitteen tietokannasta?')" value="Poista">
+            <input id="delete_button" type="submit" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
         </form>
         <br>
     </li>
@@ -32,6 +32,6 @@
 
 <h2>Nuke</h2>
 <form action="/delete_all" method="post">
-    <input id="delete_button" type="submit" onclick="return confirm('HUOM! Haluatko varmasti poistaa kaikki viitteet tietokannasta?')" value="NUKE">
+    <input id="delete_button" type="submit" onclick="return confirm('NOTE! Are you sure you want to delete all references from the database?')" value="NUKE">
 </form>
 {% endblock %}
