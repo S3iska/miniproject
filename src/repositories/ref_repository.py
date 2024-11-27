@@ -14,17 +14,7 @@ def ref_from_row(row):
     )
 
 
-def get_refs(db):
-    result = db.session.execute(text("""
-        SELECT id, type, ref_name, author, title, year, publisher
-        FROM refs
-    """))
-    refs = result.fetchall()
-
-    return [ref_from_row(ref) for ref in refs]
-
-
-def get_selected_refs(db, **kwargs):
+def get_refs(db, **kwargs):
     """
     Fetches rows from the 'refs' table based on provided filter criteria. If no
     filters are specified, all rows are retrieved. Filters can be passed as

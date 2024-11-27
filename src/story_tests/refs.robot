@@ -14,7 +14,7 @@ ${PUBLISHER}      Test Publisher
 
 *** Test Cases ***
 Add Article Reference and Verify in Database
-    # Step 1: Add a new reference via the web form
+    # Add a new reference via the web form
     Go To Add Article Page
     Input Text  refname    ${REF_NAME}
     Input Text  author     ${AUTHOR}
@@ -23,14 +23,14 @@ Add Article Reference and Verify in Database
     Input Text  publisher  ${PUBLISHER}
     Click Button  Add
 
-    # Step 2: Verify the reference is stored in the database
+    # Verify the reference is stored in the database
     ${criteria}=    Create Dictionary    ref_name=${REF_NAME}    author=${AUTHOR}    title=${TITLE}    year=${YEAR}    publisher=${PUBLISHER}
-    ${results}=     Get Refs    &{criteria}
+    ${results}=     Get Refs From Database    &{criteria}
 
-    # Step 3: Assert that the reference exists
+    # Assert that the reference exists
     Should Not Be Empty    ${results}    No references found for criteria: ${criteria}
 
-    # Step 4: Assert the specific values match
+    # Assert the specific values match
     ${result}=      Get From List    ${results}    0
     Should Be Equal As Strings    ${result}[ref_name]    ${REF_NAME}
     Should Be Equal As Strings    ${result}[author]      ${AUTHOR}
