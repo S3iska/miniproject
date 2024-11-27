@@ -3,6 +3,7 @@
 from repositories.ref_repository import get_refs
 from app import app
 from config import db
+from db_helper import reset_db
 
 class RefLibrary:
     def __init__(self):
@@ -22,3 +23,7 @@ class RefLibrary:
             refs = get_refs(db, **filters)
             # Convert Ref objects into dictionaries for use in Robot Framework
             return [vars(ref) for ref in refs]
+
+    def setup_test_db(self):
+        with app.app_context():
+            reset_db()

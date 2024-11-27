@@ -4,6 +4,7 @@ Library  Collections
 Resource  resource.robot
 Suite Setup      Open And Configure Browser
 Suite Teardown   Close Browser
+Test Setup  Setup Test Db
 
 *** Variables ***
 ${REF_NAME}       testref
@@ -34,12 +35,16 @@ Add Article Reference and Verify in Database
     Should Be Equal As Numbers    ${result}[year]        ${YEAR}
     Should Be Equal As Strings    ${result}[publisher]   ${PUBLISHER}
 
-Add Article Referance With Incorrect Year
+Add Article Reference With Incorrect Year
     Go To Add Ref Page
     Set Default Values
     Set Year    1234
     Submit Values
     Page Should Contain    ERROR
+
+Remove Article Reference
+    Go To Home Page
+
 
 
 *** Keywords ***
