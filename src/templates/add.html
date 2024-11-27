@@ -3,13 +3,13 @@
 
 {% block body %}
 <form action="/add" method="POST">
-    <h2>Add an article reference</h2>
+    <h2>Lisää artikkeliviite</h2>
     <input type="hidden" name="type" value="article"/>
-    Reference name: <input type="text" name="refname"/></br>
-    Author: <input type="text" name="author"/></br>
-    Title: <input type="text" name="title"/></br>
-    Year: <input type="number" name="year"/></br>
-    Publisher: <input type="text" name="publisher"/></br>
-    <button type="submit">Add</button>
+    Viiteavain: <input type="text" name="refname"/></br>
+    Kirjailija: <input type="text" name="author"/></br>
+    Otsikko: <input type="text" name="title"/></br>
+    Julkaisuvuosi: <input type="number" name="year"/></br>
+    Julkaisija: <input type="text" name="publisher"/></br>
+    <button type="submit">Lisää</button>
 </form>
 {% endblock %}
