@@ -17,6 +17,10 @@
     {% endfor %}
 </ul>
 
+<h2>BibTeX</h2>
+<textarea style="width:500px; height:300px" disabled>{{ bibtex }}</textarea>
+
+<h2>Nuke</h2>
 <form action="/delete_all" method="post">
     <input id="delete_button" type="submit" onclick="return confirm('HALUATKO POISTAA KAIKEN TIETOKANNASTA?')" value="NUKE">
 </form>
