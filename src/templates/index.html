@@ -2,36 +2,36 @@
 {% block title %}Miniproject{% endblock %}
 
 {% block body %}
-<a href="add">Add a new reference</a>
+<div class="container row">
+    <div class="col p-2">
+        <a href="add" class="btn btn-primary">Add a new reference</a>
+        <h2>References</h2>
+        <ul>
+            {% for ref in refs|sort(attribute='author')%}
+            <li> <hidden {{  ref.id  }} ></hidden>
+                <strong>Type:</strong> {{ ref.ref_type }}<br>
+                <strong>Title:</strong> {{ ref.title }}<br>
+                <strong>Author:</strong> {{ ref.author }}<br>
+                <strong>Publisher:</strong> {{ ref.publisher }}<br>
+                <strong>Year:</strong> {{ ref.year }}<br>
+                <form action="/{{ ref.id }}/delete_ref" method="post">
+                    <input id="delete{{ref.ref_name}}" type="submit" class="btn btn-sm btn-warning" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
+                </form>
+                <br>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-<ul>
-    {% for ref in refs|sort(attribute='author')%}
-    <li> <hidden {{  ref.id  }} ></hidden>
-        <strong>Type:</strong> {{ ref.ref_type }}<br>
-        <strong>Title:</strong> {{ ref.title }}<br>
-        <strong>Author:</strong> {{ ref.author }}<br>
-        <strong>Publisher:</strong> {{ ref.publisher }}<br>
-        <strong>Year:</strong> {{ ref.year }}<br>
-        <br>
-        <form action="/{{ ref.id }}/delete_ref" method="post">
-            <input id="delete{{ref.ref_name}}" type="submit" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
-        </form>
-        <br>
-    </li>
-    {% endfor %}
-</ul>
-
-<h2>BibTeX</h2>
-<textarea style="width:500px; height:300px" id="bibtex" readonly>{{ bibtex }}</textarea><br>
-<script>
-    function copy_bibtex() {
-        navigator.clipboard.writeText(document.getElementById('bibtex').textContent)
-    }
-</script>
-<button onclick="copy_bibtex()">Copy</button>
-
-<h2>Nuke</h2>
-<form action="/delete_all" method="post">
-    <input id="delete_button" type="submit" onclick="return confirm('NOTE! Are you sure you want to delete all references from the database?')" value="NUKE">
-</form>
+    <div class="col p-2">
+        <h2>BibTeX</h2>
+        <textarea style="width:500px; height:300px" id="bibtex" class="h-100" readonly>{{ bibtex }}</textarea><br>
+        <script>
+            function copy_bibtex() {
+                navigator.clipboard.writeText(document.getElementById('bibtex').textContent)
+            }
+        </script>
+        <button onclick="copy_bibtex()" class="btn btn-primary">Copy</button>    
+    </div>
+</div>
 {% endblock %}
