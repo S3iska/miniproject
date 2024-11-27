@@ -10,5 +10,14 @@
     Year: <input type="number" name="year"/></br>
     Publisher: <input type="text" name="publisher"/></br>
     <button type="submit">Add</button>
+    {% if error_msg %}
+        <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
+        <script>
+            function hide_error_box() {
+                document.getElementById("error_box").style.display = "none";
+            }
+            setTimeout(hide_error_box, 5000)
+        </script>
+    {% endif %}
 </form>
 {% endblock %}

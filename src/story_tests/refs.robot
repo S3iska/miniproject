@@ -39,7 +39,7 @@ Add Article Referance With Incorrect Year
     Set Default Values
     Set Year    1234
     Submit Values
-    Page Should Contain    Could not add reference
+    Page Should Contain    ERROR
 
 
 *** Keywords ***

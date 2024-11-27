@@ -39,8 +39,7 @@ def route_add():
         validate_ref(new_ref)
         create_ref(db, new_ref)
     except Exception as e:
-        print(e)
-        return "Could not add reference"
+        return render_template("add.html", error_msg=str(e))
 
     return redirect("/")
 
