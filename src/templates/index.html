@@ -14,7 +14,7 @@
         <strong>Year:</strong> {{ ref.year }}<br>
         <br>
         <form action="/{{ ref.id }}/delete_ref" method="post">
-            <input id="delete_button" type="submit" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
+            <input id="delete{{ref.ref_name}}" type="submit" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
         </form>
         <br>
     </li>

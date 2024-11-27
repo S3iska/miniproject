@@ -44,7 +44,11 @@ Add Article Reference With Incorrect Year
 
 Remove Article Reference
     Go To Home Page
-
+    Page Should Contain    ref1
+    Click Button   id:deleteref1
+    Handle Alert  ACCEPT
+    Go To Home Page
+    Page Should Not Contain    ref1
 
 
 *** Keywords ***
