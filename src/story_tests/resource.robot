@@ -24,9 +24,12 @@ Open And Configure Browser
     END
     Open Browser  browser=${BROWSER}  options=${options}
 
-Go To Add Article Page
+Go To Home Page
     Go To  ${HOME_URL}
     Title Should Be  Miniproject
-    Click Link  Add a new reference
+
+Go To Add Article Page
+    Go To Home Page
+    Click Link  Lisää uusi viite
     Location Should Be  ${ADD_URL}
 

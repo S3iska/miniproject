@@ -1,5 +1,5 @@
 *** Settings ***
-Library  RefLibrary.py
+Library  ../RefLibrary.py
 Library  Collections
 Resource  resource.robot
 Suite Setup      Open And Configure Browser
@@ -21,7 +21,7 @@ Add Article Reference and Verify in Database
     Input Text  title      ${TITLE}
     Input Text  year       ${YEAR}
     Input Text  publisher  ${PUBLISHER}
-    Click Button  Add
+    Click Button  Lisää
 
     # Verify the reference is stored in the database
     ${criteria}=    Create Dictionary    ref_name=${REF_NAME}    author=${AUTHOR}    title=${TITLE}    year=${YEAR}    publisher=${PUBLISHER}
