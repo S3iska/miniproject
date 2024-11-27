@@ -21,6 +21,11 @@
             </li>
             {% endfor %}
         </ul>
+
+        <h2>Nuke</h2>
+        <form action="/delete_all" method="post">
+            <input id="delete_button" type="submit" onclick="return confirm('NOTE! Are you sure you want to delete all references from the database?')" value="NUKE">
+        </form>
     </div>
 
     <div class="col p-2">
