@@ -18,7 +18,14 @@
 </ul>
 
 <h2>BibTeX</h2>
-<textarea style="width:500px; height:300px" disabled>{{ bibtex }}</textarea>
+<textarea style="width:500px; height:300px" id="bibtex" readonly>{{ bibtex }}</textarea><br>
+<script>
+    function copy_bibtex() {
+        document.getElementById('bibtex').select()
+        document.execCommand('copy')
+    }
+</script>
+<button onclick="copy_bibtex()">Copy</button>
 
 <h2>Nuke</h2>
 <form action="/delete_all" method="post">
