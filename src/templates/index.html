@@ -2,16 +2,20 @@
 {% block title %}Miniproject{% endblock %}
 
 {% block body %}
-<a href="add">Add a new reference</a>
+<a href="add">Lisää uusi viite</a>
 
 <ul>
     {% for ref in refs|sort(attribute='author')%}
-    <li>
+    <li> <hidden {{  ref.id  }} ></hidden>
         <strong>Tyyppi:</strong> {{ ref.ref_type }}<br>
         <strong>Otsikko:</strong> {{ ref.title }}<br>
         <strong>Kirjoittaja:</strong> {{ ref.author }}<br>
         <strong>Julkaisija:</strong> {{ ref.publisher }}<br>
         <strong>Julkaisuvuosi:</strong> {{ ref.year }}<br>
+        <br>
+        <form action="/{{ ref.id }}/delete_ref" method="post">
+            <input id="delete_button" type="submit" onclick="return confirm('HUOM! Haluatko varmasti poistaa viitteen tietokannasta?')" value="Poista">
+        </form>
         <br>
     </li>
     {% endfor %}
@@ -28,6 +32,6 @@
 
 <h2>Nuke</h2>
 <form action="/delete_all" method="post">
-    <input id="delete_button" type="submit" onclick="return confirm('HALUATKO POISTAA KAIKEN TIETOKANNASTA?')" value="NUKE">
+    <input id="delete_button" type="submit" onclick="return confirm('HUOM! Haluatko varmasti poistaa kaikki viitteet tietokannasta?')" value="NUKE">
 </form>
 {% endblock %}
