@@ -73,6 +73,13 @@ def create_ref(db, ref: Ref):
     })
     db.session.commit()
 
+
+def delete_ref(db, ref_id):
+    sql = text("DELETE FROM refs WHERE id = :id")
+    db.session.execute(sql, {"id": ref_id})
+    db.session.commit()
+
+
 def delete_all_refs(db):
     sql = text("TRUNCATE refs")
     db.session.execute(sql)
