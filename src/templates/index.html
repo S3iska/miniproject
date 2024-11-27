@@ -23,8 +23,8 @@
         </ul>
 
         <h2>Nuke</h2>
-        <form action="/delete_all" class="btn btn-danger" method="post">
-            <input id="delete_button" type="submit" onclick="return confirm('NOTE! Are you sure you want to delete all references from the database?')" value="NUKE">
+        <form action="/delete_all" method="post">
+            <input id="delete_button" class="btn btn-danger" type="submit" onclick="return confirm('NOTE! Are you sure you want to delete all references from the database?')" value="NUKE">
         </form>
     </div>
 
@@ -33,7 +33,10 @@
         <textarea style="width:500px; height:300px" id="bibtex" class="h-100" readonly>{{ bibtex }}</textarea><br>
         <script>
             function copy_bibtex() {
-                navigator.clipboard.writeText(document.getElementById('bibtex').textContent)
+                var area = document.getElementById("bibtex");
+                area.select();
+                area.setSelectionRange(0, 99999);
+                navigator.clipboard.writeText(area.value);
             }
         </script>
         <button onclick="copy_bibtex()" class="btn btn-primary">Copy</button>    
