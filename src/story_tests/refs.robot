@@ -1,5 +1,5 @@
 *** Settings ***
-Library  ../RefLibrary.py
+Library  RefLibrary.py
 Library  Collections
 Resource  resource.robot
 Suite Setup      Open And Configure Browser
