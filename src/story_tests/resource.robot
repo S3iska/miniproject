@@ -28,7 +28,7 @@ Go To Home Page
     Go To  ${HOME_URL}
     Title Should Be  Miniproject
 
-Go To Add Article Page
+Go To Add Ref Page
     Go To Home Page
     Click Link  Lisää uusi viite
     Location Should Be  ${ADD_URL}
