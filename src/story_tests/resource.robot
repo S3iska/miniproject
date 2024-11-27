@@ -30,6 +30,6 @@ Go To Home Page
 
 Go To Add Ref Page
     Go To Home Page
-    Click Link  Lisää uusi viite
+    Click Link  Add a new reference
     Location Should Be  ${ADD_URL}
 

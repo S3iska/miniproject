@@ -6,5 +6,5 @@ Suite Teardown   Close Browser
 *** Test Cases ***
 Home Page Loads
     Go To Home Page
-    Page Should Contain Link    Lisää uusi viite
+    Page Should Contain Link    Add a new reference
     Page Should Contain Button    NUKE

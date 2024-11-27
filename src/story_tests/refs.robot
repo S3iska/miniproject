@@ -72,4 +72,4 @@ Set Default Values
     Set Publisher  ${PUBLISHER}
 
 Submit Values
-    Click Button  Lisää
+    Click Button  Add
