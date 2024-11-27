@@ -21,8 +21,7 @@
 <textarea style="width:500px; height:300px" id="bibtex" readonly>{{ bibtex }}</textarea><br>
 <script>
     function copy_bibtex() {
-        document.getElementById('bibtex').select()
-        document.execCommand('copy')
+        navigator.clipboard.writeText(document.getElementById('bibtex').textContent)
     }
 </script>
 <button onclick="copy_bibtex()">Copy</button>
