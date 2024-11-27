@@ -35,7 +35,7 @@ Add Article Reference and Verify in Database
     Should Be Equal As Strings    ${result}[publisher]   ${PUBLISHER}
 
 Add Article Referance With Incorrect Year
-    Go To Add Article Page
+    Go To Add Ref Page
     Set Default Values
     Set Year    1234
     Submit Values
