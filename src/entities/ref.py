@@ -21,6 +21,7 @@ class Ref:
             value = getattr(self, field.name)
             if value is not None:
                 res += f"    {field.name} = {{{value}}},\n"
+        res += "    journal = {},\n"
         res += "}"
 
         return res

@@ -20,6 +20,7 @@
 3. Luo .env-tiedosto:
    ```
     DATABASE_URL=postgresql://xxx
+    TEST_DATABASE_URL=postgresql://xxx
     TEST_ENV=true
     SECRET_KEY=satunnainen_merkkijono
    ```
