@@ -1,16 +1,18 @@
 {% extends "layout.html" %}
 {% block title %}Add references{% endblock %}
 {% block body %}
-<div class="m-3">
+<div class="m-3 w-25">
     <form action="/add" method="POST">
         <h2>Add an article reference</h2>
         <input type="hidden" name="type" value="article"/>
-        Reference name: <input type="text" name="refname" required/></br>
-        Author: <input type="text" name="author" required/></br>
-        Title: <input type="text" name="title" required/></br>
-        Year: <input type="number" name="year" required/></br>
-        Publisher: <input type="text" name="publisher" required/></br>
+        Reference name: <input class="form-control" type="text" name="refname" required/></br>
+        Author: <input class="form-control" type="text" name="author" required/></br>
+        Title: <input class="form-control" type="text" name="title" required/></br>
+        Year: <input class="form-control" type="number" name="year" required/></br>
+        Publisher: <input class="form-control" type="text" name="publisher" required/></br>
+        <div>
         <button type="submit" class="btn btn-primary">Add</button>
+        </div>
         {% if error_msg %}
             <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
             <script>
