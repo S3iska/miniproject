@@ -1,23 +1,25 @@
 {% extends "layout.html" %}
 {% block title %}Add references{% endblock %}
 {% block body %}
-<form action="/add" method="POST">
-    <h2>Add an article reference</h2>
-    <input type="hidden" name="type" value="article"/>
-    Reference name: <input type="text" name="refname"/></br>
-    Author: <input type="text" name="author"/></br>
-    Title: <input type="text" name="title"/></br>
-    Year: <input type="number" name="year"/></br>
-    Publisher: <input type="text" name="publisher"/></br>
-    <button type="submit">Add</button>
-    {% if error_msg %}
-        <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
-        <script>
-            function hide_error_box() {
-                document.getElementById("error_box").style.display = "none";
-            }
-            setTimeout(hide_error_box, 5000)
-        </script>
-    {% endif %}
-</form>
+<div class="m-3">
+    <form action="/add" method="POST">
+        <h2>Add an article reference</h2>
+        <input type="hidden" name="type" value="article"/>
+        Reference name: <input type="text" name="refname" required/></br>
+        Author: <input type="text" name="author" required/></br>
+        Title: <input type="text" name="title" required/></br>
+        Year: <input type="number" name="year" required/></br>
+        Publisher: <input type="text" name="publisher" required/></br>
+        <button type="submit" class="btn btn-primary">Add</button>
+        {% if error_msg %}
+            <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
+            <script>
+                function hide_error_box() {
+                    document.getElementById("error_box").style.display = "none";
+                }
+                setTimeout(hide_error_box, 5000)
+            </script>
+        {% endif %}
+    </form>
+</div>
 {% endblock %}
