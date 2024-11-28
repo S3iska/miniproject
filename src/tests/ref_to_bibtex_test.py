@@ -19,6 +19,7 @@ class TestRefToBibtex(unittest.TestCase):
                           "    author = {test author},\n"
                           "    title = {test title},\n"
                           "    year = {1997},\n"
+                          "    journal = {},\n"
                           "}")
 
         bibtex = self.ref.get_bibtex()
