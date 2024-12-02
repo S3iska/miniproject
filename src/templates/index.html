@@ -7,12 +7,34 @@
         <h2>References</h2>
         <ul>
             {% for ref in refs|sort(attribute='author')%}
-            <li> <hidden {{  ref.id  }} ></hidden>
+            <li><hidden {{ ref.id }}></hidden>
                 <strong>Type:</strong> {{ ref.ref_type }}<br>
-                <strong>Title:</strong> {{ ref.title }}<br>
-                <strong>Author:</strong> {{ ref.author }}<br>
-                <strong>Publisher:</strong> {{ ref.publisher }}<br>
-                <strong>Year:</strong> {{ ref.year }}<br>
+                <strong>Reference name:</strong> {{ ref.ref_name }}<br>
+            
+                {% set ref_fields = [
+                    ("Title", ref.title),
+                    ("Author", ref.author),
+                    ("Year", ref.year),
+                    ("Journal", ref.journal),
+                    ("Pages", ref.pages),
+                    ("Month", ref.month),
+                    ("DOI", ref.doi),
+                    ("Note", ref.note),
+                    ("Key", ref.key),
+                    ("Publisher", ref.publisher),
+                    ("Series", ref.series),
+                    ("Address", ref.address),
+                    ("Edition", ref.edition),
+                    ("URL", ref.url),
+                    ("Book Title", ref.booktitle),
+                    ("Editor", ref.editor),
+                    ("Organization", ref.organization)
+                ] %}
+            
+                {% for label, value in ref_fields %}
+                    {% if value %}<strong>{{ label }}:</strong> {{ value }}<br>{% endif %}
+                {% endfor %}
+            
                 <form action="/{{ ref.id }}/delete_ref" method="post">
                     <input id="delete{{ref.ref_name}}" type="submit" class="btn btn-sm btn-warning" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
                 </form>
