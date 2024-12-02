@@ -26,7 +26,7 @@ CREATE TABLE refs (
 );
 
 CREATE TABLE tags (
-    id SERIAL PRIMARY KEY,
+    tag_id SERIAL PRIMARY KEY,
     tag_name TEXT NOT NULL UNIQUE
 );
 
