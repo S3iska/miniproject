@@ -7,3 +7,13 @@ CREATE TABLE refs (
     year INTEGER NOT NULL,
     publisher TEXT
 );
+
+CREATE TABLE tags (
+    id SERIAL PRIMARY KEY,
+    tag_name TEXT NOT NULL UNIQUE,
+);
+
+CREATE TABLE ref_tags (
+    ref_id INT REFERENCES refs,
+    tag_id INT REFERENCES tags
+);
