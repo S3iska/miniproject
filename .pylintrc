@@ -17,7 +17,8 @@ disable=raw-checker-failed,
         missing-class-docstring,
         broad-exception-caught,
         bare-except,
-        too-few-public-methods
+        too-few-public-methods,
+        too-many-instance-attributes
 
 [FORMAT]
 max-line-length=80

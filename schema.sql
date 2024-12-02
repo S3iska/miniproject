@@ -1,6 +1,6 @@
 CREATE TABLE refs (
     id SERIAL PRIMARY KEY,
-    type TEXT NOT NULL, -- article, book or inproceedings
+    ref_type TEXT NOT NULL, -- article, book or inproceedings
     ref_name TEXT NOT NULL, -- name for ref in bibtext
 
     author TEXT,

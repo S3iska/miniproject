@@ -5,7 +5,7 @@ from entities.ref import Ref
 def ref_from_row(row):
     return Ref(
         id = row.id,
-        ref_type = row.type,
+        ref_type = row.ref_type,
         ref_name = row.ref_name,
         author = row.author,
         title = row.title,
@@ -23,12 +23,12 @@ def get_refs(db, **kwargs):
     """
 
     query = """
-        SELECT id, type, ref_name, author, title, year, publisher
+        SELECT id, ref_type, ref_name, author, title, year, publisher
         FROM refs
     """
 
     valid_fields = [
-        'id', 'type', 'ref_name', 'author', 'title', 'year', 'publisher'
+        'id', 'ref_type', 'ref_name', 'author', 'title', 'year', 'publisher'
     ]
 
     conditions = []
@@ -50,11 +50,11 @@ def get_refs(db, **kwargs):
 
 def create_ref(db, ref: Ref):
     sql = text("""
-        INSERT INTO refs (type, ref_name, author, title, year, publisher)
-        VALUES (:type, :ref_name, :author, :title, :year, :publisher)
+        INSERT INTO refs (ref_type, ref_name, author, title, year, publisher)
+        VALUES (:ref_type, :ref_name, :author, :title, :year, :publisher)
     """)
     db.session.execute(sql, {
-        "type": ref.ref_type,
+        "ref_type": ref.ref_type,
         "ref_name": ref.ref_name,
         "author": ref.author,
         "title": ref.title,
