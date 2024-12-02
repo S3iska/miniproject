@@ -27,10 +27,10 @@ CREATE TABLE refs (
 
 CREATE TABLE tags (
     id SERIAL PRIMARY KEY,
-    tag_name TEXT NOT NULL UNIQUE,
+    tag_name TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE ref_tags (
-    ref_id INT REFERENCES refs,
-    tag_id INT REFERENCES tags
+    ref_id INT REFERENCES refs ON DELETE CASCADE,
+    tag_id INT REFERENCES tags ON DELETE CASCADE
 );

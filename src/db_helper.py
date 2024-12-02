@@ -13,11 +13,16 @@ def table_exists(name):
     result = db.session.execute(sql_table_existence)
     return result.fetchall()[0][0]
 
-def setup_db():
-    if table_exists("refs"):
-        sql = text("DROP TABLE refs;")
+def delete_table_if_exists(name):
+    if table_exists(name):
+        sql = text(f"DROP TABLE {name} CASCADE;")
         db.session.execute(sql)
         db.session.commit()
+
+def setup_db():
+    delete_table_if_exists("refs")
+    delete_table_if_exists("tags")
+    delete_table_if_exists("ref_tags")
 
     sql = text("SELECT 1;")
     with open('schema.sql', 'r', encoding="utf-8") as file:
