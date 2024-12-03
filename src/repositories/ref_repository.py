@@ -1,17 +1,10 @@
 from sqlalchemy import text
 from entities.ref import Ref
+from dataclasses import fields
 
 
 def ref_from_row(row):
-    return Ref(
-        id = row.id,
-        ref_type = row.ref_type,
-        ref_name = row.ref_name,
-        author = row.author,
-        title = row.title,
-        year = row.year,
-        publisher = row.publisher
-    )
+    return Ref(**{field.name: getattr(row, field.name, None) for field in fields(Ref)})
 
 
 def get_refs(db, **kwargs):
@@ -22,14 +15,10 @@ def get_refs(db, **kwargs):
     a list of Ref objects, constructed dynamically by unpacking database rows.
     """
 
-    query = """
-        SELECT id, ref_type, ref_name, author, title, year, publisher
-        FROM refs
-    """
+    valid_fields = [field.name for field in fields(Ref)]
+    query_fields = ", ".join(valid_fields)
 
-    valid_fields = [
-        'id', 'ref_type', 'ref_name', 'author', 'title', 'year', 'publisher'
-    ]
+    query = f"SELECT {query_fields} FROM refs"
 
     conditions = []
     params = {}
@@ -49,19 +38,16 @@ def get_refs(db, **kwargs):
 
 
 def create_ref(db, ref: Ref):
-    sql = text("""
-        INSERT INTO refs (ref_type, ref_name, author, title, year, publisher)
-        VALUES (:ref_type, :ref_name, :author, :title, :year, :publisher)
+    fields_to_insert = [field.name for field in fields(Ref) if getattr(ref, field.name) is not None]
+    columns = ", ".join(fields_to_insert)
+    placeholders = ", ".join([f":{field}" for field in fields_to_insert])
+
+    sql = text(f"""
+        INSERT INTO refs ({columns})
+        VALUES ({placeholders})
     """)
-    db.session.execute(sql, {
-        "ref_type": ref.ref_type,
-        "ref_name": ref.ref_name,
-        "author": ref.author,
-        "title": ref.title,
-        "year": ref.year,
-        "publisher": ref.publisher
-    })
-    db.session.commit()
+    db.session.execute(sql, {field: getattr(ref, field) for field in fields_to_insert})
+    db.session.commit()    
 
 
 def delete_ref(db, ref_id):
