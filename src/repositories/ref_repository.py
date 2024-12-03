@@ -1,10 +1,12 @@
+from dataclasses import fields
 from sqlalchemy import text
 from entities.ref import Ref
-from dataclasses import fields
 
 
 def ref_from_row(row):
-    return Ref(**{field.name: getattr(row, field.name, None) for field in fields(Ref)})
+    return Ref(
+        **{field.name: getattr(row, field.name, None) for field in fields(Ref)}
+    )
 
 
 def get_refs(db, **kwargs):
@@ -38,7 +40,9 @@ def get_refs(db, **kwargs):
 
 
 def create_ref(db, ref: Ref):
-    fields_to_insert = [field.name for field in fields(Ref) if getattr(ref, field.name) is not None]
+    fields_to_insert = [
+        field.name for field in fields(Ref)
+        if getattr(ref, field.name) is not None]
     columns = ", ".join(fields_to_insert)
     placeholders = ", ".join([f":{field}" for field in fields_to_insert])
 
@@ -46,8 +50,9 @@ def create_ref(db, ref: Ref):
         INSERT INTO refs ({columns})
         VALUES ({placeholders})
     """)
-    db.session.execute(sql, {field: getattr(ref, field) for field in fields_to_insert})
-    db.session.commit()    
+    db.session.execute(sql, {
+        field: getattr(ref, field) for field in fields_to_insert})
+    db.session.commit()
 
 
 def delete_ref(db, ref_id):
