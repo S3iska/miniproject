@@ -46,7 +46,7 @@ def route_add():
 @app.route("/<int:ref_id>/add_tags", methods=["GET", "POST"])
 def add_tags(ref_id):
     if request.method == "GET":
-        return render_template("add_tags.html", tags=get_tags(db), ref_id=ref_id)
+        return render_template("add_tags.html", tags=get_tags(db),ref_id=ref_id)
 
     return redirect("/")
 
