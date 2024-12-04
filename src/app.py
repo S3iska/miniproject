@@ -19,22 +19,26 @@ def route_add():
     if request.method == "GET":
         return render_template("add.html")
 
-    ref_type = request.form.get("type")
-    ref_name = request.form.get("refname")
-    ref_author = request.form.get("author")
-    ref_title = request.form.get("title")
-    ref_year = int(request.form.get("year"))
-    ref_publisher = request.form.get("publisher")
+    fields = [
+        "author", "title", "year", "publisher", "journal", "volume", 
+        "pages", "month", "doi", "note", "key", "series", "address", 
+        "edition", "url", "booktitle", "editor", "organization"
+    ]
 
-    new_ref = Ref(
-        ref_type = ref_type,
-        ref_name = ref_name,
-        author = ref_author,
-        title = ref_title,
-        year = ref_year,
-        publisher = ref_publisher
-    )
+    form_data = {}
 
+    for field in fields:
+        value = request.form.get(field)
+        if field == "year" and value is not None:
+            value = int(value)
+        form_data[field] = value
+
+    form_data["ref_type"] = request.form.get("type")
+    form_data["ref_name"] = request.form.get("refname")
+
+    ref_fields = ["ref_type", "ref_name"] + fields
+
+    new_ref = Ref(**{key: form_data.get(key) for key in ref_fields})
     try:
         new_ref.validate()
         create_ref(db, new_ref)
