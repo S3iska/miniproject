@@ -42,6 +42,13 @@ def route_add():
 
     return redirect("/")
 
+@app.route("/<int:ref_id>/add_tags", methods=["GET", "POST"])
+def add_tags(ref_id):
+    if request.method == "GET":
+        return render_template("add_tags.html")
+
+    return redirect("/")
+
 @app.route("/delete_all", methods=["POST"])
 def delete_all():
     delete_all_refs(db)

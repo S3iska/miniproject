@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Add tags to reference{% endblock %}
+{% block body %}
+
+<div class="m-3 w-25">
+    <form action="/add" method="POST">
+        <h2>Add tags to reference</h2>
+        <div id="tagform" class="tagform">
+            <input id="tagname" type="text" name="tag_name" size="60" minlength="1" placeholder="Tag" required>
+        </div>
+
+        <script src="{{url_for('static', filename='script.js')}}"></script>
+
+        <div class="tagform">
+            <button onclick="add()" class="btn btn-primary">Lisää</button>
+            <button onclick="remove()" class="btn btn-danger">Poista</button>
+        </div>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
