@@ -2,6 +2,10 @@ from sqlalchemy import text
 from entities.tag import Tag, validate_tag
 
 
+class DBError(Exception):
+    pass
+
+
 def create_tag(db, tag: Tag):
     try:
         query = text("INSERT INTO tags (tag_name) VALUES (:name)")
@@ -42,5 +46,11 @@ def link_tag_to_ref(db, ref_id, tag_name):
                 VALUES (:ref_id, :tag_id)")
         db.session.execute(sql, {"ref_id": ref_id, "tag_id": link_tag.tag_id})
         db.session.commit()
-    except Exception:
+    except Exception as e:
         db.session.rollback()
+        raise e
+
+
+def link_many_tags_to_ref(db, ref_id, tag_names):
+    for tag_name in tag_names:
+        link_tag_to_ref(db, ref_id, tag_name)
