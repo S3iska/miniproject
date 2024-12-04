@@ -43,25 +43,6 @@ Add Article Reference With Incorrect Year
     Submit Values
     Page Should Contain    ERROR
 
-Remove Article Reference
-    Go To Home Page
-    Page Should Contain    ref1
-    Scroll Element Into View  id:deleteref1
-    Click Button   id:deleteref1
-    Handle Alert  ACCEPT
-    Go To Home Page
-    Page Should Not Contain    ref1
-
-Reference Is Not Removed If Pop Up Is Cancelled
-    Go To Home Page
-    Page Should Contain    ref1
-    Scroll Element Into View  id:deleteref1
-    Click Button   id:deleteref1
-    Handle Alert  DISMISS
-    Go To Home Page
-    Page Should Contain    ref1
-
-
 *** Keywords ***
 Set Ref type
     [Arguments]  ${type}

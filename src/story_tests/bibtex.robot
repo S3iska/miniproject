@@ -12,4 +12,4 @@ BibTex is Shown correctly
     Page Should Contain    author = {John Doe},
     Page Should Contain    title = {Dah Wah},
     Page Should Contain    year = {1999},
-    Page Should Contain    publisher = {ABC}
+    Page Should Contain    journal = {ABC}

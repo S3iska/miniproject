@@ -1,4 +1,4 @@
-INSERT INTO refs (id, ref_type, ref_name, author, title, year, publisher)
+INSERT INTO refs (id, ref_type, ref_name, author, title, year, journal)
 VALUES (100, 'article', 'ref1', 'John Doe', 'Dah Wah', 1999, 'ABC'),
 (101, 'article', 'reftwo', 'Jack Black', 'Rock Schule', 1980, 'Otava');
 
