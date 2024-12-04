@@ -6,7 +6,7 @@ function add(){
   newField.setAttribute("type","text");
   newField.setAttribute("name","tag_name");
   newField.setAttribute("size",60);
-  newField.setAttribute("minsize",3);
+  newField.setAttribute("minlength",3);
   newField.setAttribute("placeholder","Tag");
   newField.setAttribute("required","");
   tagform.appendChild(newField);
@@ -19,7 +19,7 @@ function addTag(button){
   newField.setAttribute("type","text");
   newField.setAttribute("name","tag_name");
   newField.setAttribute("size",60);
-  newField.setAttribute("minsize",3);
+  newField.setAttribute("minlength",3);
   newField.setAttribute("placeholder","Tag");
   newField.setAttribute("required","");
 
@@ -33,5 +33,28 @@ function remove(){
   var input_tags = tagform.getElementsByTagName("input");
   if(input_tags.length > 1) {
     tagform.removeChild(input_tags[(input_tags.length) - 1]);
+  }
+}
+
+
+function hide_error_box() {
+  document.getElementById("error_box").style.display = "none";
+}
+setTimeout(hide_error_box, 5000)
+
+
+function showForm() {
+  document.getElementById("articleForm").style.display = "none";
+  document.getElementById("inproceedingsForm").style.display = "none";
+  document.getElementById("bookForm").style.display = "none";
+  
+  var selectedValue = document.getElementById("typeSelect").value;
+  
+  if (selectedValue === "article") {
+      document.getElementById("articleForm").style.display = "block";
+  } else if (selectedValue === "inproceedings") {
+      document.getElementById("inproceedingsForm").style.display = "block";
+  } else if (selectedValue === "book") {
+      document.getElementById("bookForm").style.display = "block";
   }
 }

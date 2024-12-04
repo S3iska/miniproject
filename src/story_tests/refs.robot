@@ -7,6 +7,7 @@ Suite Teardown   Close Browser
 Test Setup  Setup Test Db
 
 *** Variables ***
+${type}           article
 ${REF_NAME}       testref
 ${AUTHOR}         Test Author
 ${TITLE}          Test Title
@@ -62,6 +63,10 @@ Reference Is Not Removed If Pop Up Is Cancelled
 
 
 *** Keywords ***
+Set Ref type
+    [Arguments]  ${type}
+    Select From List By Value  id:typeSelect  ${type}
+
 Set Ref Name
     [Arguments]  ${refname}
     Input Text  refname  ${refname}
@@ -84,6 +89,7 @@ Set Publisher
 
 
 Set Default Values
+    Set Ref type  ${type}
     Set Ref Name  ${REF_NAME}
     Set author  ${AUTHOR}
     Set Title  ${TITLE}
