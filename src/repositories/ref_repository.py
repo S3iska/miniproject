@@ -39,6 +39,44 @@ def get_refs(db, **kwargs):
     return [ref_from_row(ref) for ref in refs]
 
 
+
+def get_refs_tags(db, **kwargs):
+    valid_fields = [field.name for field in fields(Ref)]
+    query_fields = ", ".join([f"r.{field}" for field in valid_fields])
+
+    query = f"""
+    SELECT 
+        {query_fields},
+        COALESCE(json_agg(json_build_object('tag_name', t.tag_name)), '[]') AS tags
+    FROM refs r
+    LEFT JOIN ref_tags rt ON r.id = rt.ref_id
+    LEFT JOIN tags t ON rt.tag_id = t.tag_id
+    """
+
+    conditions = []
+    params = {}
+
+    for field in valid_fields:
+        if field in kwargs and kwargs[field] is not None:
+            conditions.append(f"r.{field} = :{field}")
+            params[field] = kwargs[field]
+
+    if conditions:
+        query += " WHERE " + " AND ".join(conditions)
+
+    query += " GROUP BY " + ", ".join([f"r.{field}" for field in valid_fields])
+
+    result = db.session.execute(text(query), params)
+    refs_with_tags = result.fetchall()
+
+    return [
+        {
+            field.name: getattr(row, field.name, None) for field in fields(Ref)
+        } | {"tags": row.tags}
+        for row in refs_with_tags
+    ]
+
+
 def create_ref(db, ref: Ref):
     fields_to_insert = [
         field.name for field in fields(Ref)
