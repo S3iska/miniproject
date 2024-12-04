@@ -4,7 +4,6 @@
 <div class="m-3 w-25">
     <h2>Add a reference</h2>
     <br>
-    <form action="/add" method="POST">
         <select id="typeSelect" name="ref_type" onchange="showForm()">
             <option value="">--Choose an reference type</option>
             <option value="article">Article</option>
@@ -13,34 +12,79 @@
         </select>
         <br>
 
-        <!--<input type="hidden" name="type" value="article"/>-->
-        Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
-        Author: <input class="form-control" type="text" name="author" required/></br>
-        Title: <input class="form-control" type="text" name="title" required/></br>
-        Year: <input class="form-control" type="number" name="year" required/></br>
-        Journal: <input class="form-control" type="text" name="journal"/></br>
-        Volume: <input class="form-control" type="text" name="volume"/></br>
-        Pages: <input class="form-control" type="text" name="pages"/></br>
-        Month: <input class="form-control" type="text" name="month"/></br>
-        DOI: <input class="form-control" type="text" name="doi"/></br>
-        Note: <input class="form-control" type="text" name="note"/></br>
-        Key: <input class="form-control" type="text" name="key"/></br>    
-        Publisher: <input class="form-control" type="text" name="publisher"/></br>
-        Series: <input class="form-control" type="text" name="series"/></br>
-        Address: <input class="form-control" type="text" name="address"/></br>
-        Edition: <input class="form-control" type="text" name="edition"/></br>
-        URL: <input class="form-control" type="text" name="url"/></br>
-        Book title: <input class="form-control" type="text" name="booktitle"/></br>
-        Editor: <input class="form-control" type="text" name="editor"/></br>
-        Organization: <input class="form-control" type="text" name="organization"/></br>
-        
-        <div>
-        <button type="submit" class="btn btn-primary">Add</button>
-        </div>
-        {% if error_msg %}
-            <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
-        {% endif %}
-    </form>
+    <div id="articleForm" class="form-section">
+        <form action="/add" method="POST">
+            <input type="hidden" name="ref_type" value="article"/>
+            Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
+            Author: <input class="form-control" type="text" name="author" required/></br>
+            Title: <input class="form-control" type="text" name="title" required/></br>
+            Year: <input class="form-control" type="number" name="year" required/></br>
+            Journal: <input class="form-control" type="text" name="journal" required/></br>
+            <br>
+            Volume: <input class="form-control" type="text" name="volume"/></br>
+            Pages: <input class="form-control" type="text" name="pages"/></br>
+            Month: <input class="form-control" type="text" name="month"/></br>
+            DOI: <input class="form-control" type="text" name="doi"/></br>
+            Note: <input class="form-control" type="text" name="note"/></br>
+            Key: <input class="form-control" type="text" name="key"/></br>
+            <div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div id="inproceedingsForm" class="form-section">
+        <form action="/add" method="POST">
+            <input type="hidden" name="ref_type" value="inproceedings"/>
+            Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
+            Author: <input class="form-control" type="text" name="author" required/></br>
+            Title: <input class="form-control" type="text" name="title" required/></br>
+            Year: <input class="form-control" type="number" name="year" required/></br>
+            Booktitle: <input class="form-control" type="text" name="booktitle" required/></br>
+            <br>
+            Publisher: <input class="form-control" type="text" name="publisher"/></br>
+            Volume: <input class="form-control" type="text" name="volume"/></br>
+            Pages: <input class="form-control" type="text" name="pages"/></br>
+            Month: <input class="form-control" type="text" name="month"/></br>
+            Note: <input class="form-control" type="text" name="note"/></br>
+            Key: <input class="form-control" type="text" name="key"/></br>
+            Series: <input class="form-control" type="text" name="series"/></br>
+            Address: <input class="form-control" type="text" name="address"/></br>
+            Editor: <input class="form-control" type="text" name="editor"/></br>
+            Organization: <input class="form-control" type="text" name="organization"/></br>
+            <div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="bookForm" class="form-section">
+        <form action="/add" method="POST">
+            <input type="hidden" name="ref_type" value="book"/>>
+            Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
+            Author: <input class="form-control" type="text" name="author" required/></br>
+            Title: <input class="form-control" type="text" name="title" required/></br>
+            Year: <input class="form-control" type="number" name="year" required/></br>
+            Publisher: <input class="form-control" type="text" name="publisher" required/></br>
+            <br>
+            Volume: <input class="form-control" type="text" name="volume"/></br>
+            Month: <input class="form-control" type="text" name="month"/></br>
+            Note: <input class="form-control" type="text" name="note"/></br>
+            Key: <input class="form-control" type="text" name="key"/></br>
+            Series: <input class="form-control" type="text" name="series"/></br>
+            Address: <input class="form-control" type="text" name="address"/></br>
+            Edition: <input class="form-control" type="text" name="edition"/></br>
+            URL: <input class="form-control" type="text" name="url"/></br>
+            Editor: <input class="form-control" type="text" name="editor"/></br>
+            <div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+    {% if error_msg %}
+    <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
+    {% endif %}
 
 </div>
 <script src="{{url_for('static', filename='script.js')}}"></script>
