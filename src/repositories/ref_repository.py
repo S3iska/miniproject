@@ -100,6 +100,6 @@ def delete_ref(db, ref_id):
 
 
 def delete_all_refs(db):
-    sql = text("TRUNCATE refs")
+    sql = text("TRUNCATE refs, ref_tags")
     db.session.execute(sql)
     db.session.commit()
