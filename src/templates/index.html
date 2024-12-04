@@ -35,9 +35,7 @@
                     {% if value %}<strong>{{ label }}:</strong> {{ value }}<br>{% endif %}
                 {% endfor %}
 
-                <form action="/{{ ref.id }}/add_tag" method="post">
-                    <input id="add_tag{{ref.ref_name}}" type="submit" value="Add tag">
-                </form>
+                <a href="{{ ref.id }}/add_tags" class="btn btn-primary m-1">Add a tag</a>
             
                 <form action="/{{ ref.id }}/delete_ref" method="post">
                     <input id="delete{{ref.ref_name}}" type="submit" class="btn btn-sm btn-warning" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
