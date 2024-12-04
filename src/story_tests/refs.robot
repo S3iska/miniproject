@@ -12,7 +12,7 @@ ${REF_NAME}       testref
 ${AUTHOR}         Test Author
 ${TITLE}          Test Title
 ${YEAR}           2020
-${PUBLISHER}      Test Publisher
+${JOURNAL}        Test Journal
 
 *** Test Cases ***
 Add Article Reference and Verify in Database
@@ -22,7 +22,7 @@ Add Article Reference and Verify in Database
     Submit Values
 
     # Verify the reference is stored in the database
-    ${criteria}=    Create Dictionary    ref_name=${REF_NAME}    author=${AUTHOR}    title=${TITLE}    year=${YEAR}    publisher=${PUBLISHER}
+    ${criteria}=    Create Dictionary    ref_name=${REF_NAME}    author=${AUTHOR}    title=${TITLE}    year=${YEAR}    journal=${JOURNAL}
     ${results}=     Get Refs From Database    &{criteria}
 
     # Assert that the reference exists
@@ -34,7 +34,7 @@ Add Article Reference and Verify in Database
     Should Be Equal As Strings    ${result}[author]      ${AUTHOR}
     Should Be Equal As Strings    ${result}[title]       ${TITLE}
     Should Be Equal As Numbers    ${result}[year]        ${YEAR}
-    Should Be Equal As Strings    ${result}[publisher]   ${PUBLISHER}
+    Should Be Equal As Strings    ${result}[journal]     ${JOURNAL}
 
 Add Article Reference With Incorrect Year
     Go To Add Ref Page
@@ -83,9 +83,9 @@ Set Year
     [Arguments]  ${year}
     Input Text  year       ${year}
 
-Set Publisher
-    [Arguments]  ${publisher}
-    Input Text  publisher  ${publisher}
+Set Journal
+    [Arguments]  ${journal}
+    Input Text  journal  ${journal}
 
 
 Set Default Values
@@ -94,7 +94,7 @@ Set Default Values
     Set author  ${AUTHOR}
     Set Title  ${TITLE}
     Set Year  ${YEAR}
-    Set Publisher  ${PUBLISHER}
+    Set Journal  ${JOURNAL}
 
 Submit Values
     Click Button  Add

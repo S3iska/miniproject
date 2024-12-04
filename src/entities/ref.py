@@ -56,9 +56,9 @@ class Ref:
             validate_string(self.title, "Title", False, 3, 250)
 
         if self.ref_type == "article":
-            validate_string(self.journal, "Journal", True, 3, 250)
+            validate_string(self.journal, "Journal", False, 3, 250)
         else:
-            validate_string(self.publisher, "Publisher", True, 3, 250)
+            validate_string(self.publisher, "Publisher", False, 3, 250)
 
         if not (self.year and 1600 < self.year < 2100):
             raise UserInputError("Year must be between 1600 and 2100")

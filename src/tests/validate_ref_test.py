@@ -101,9 +101,9 @@ class TestRefValidation(unittest.TestCase):
     def test_missing_or_too_short_or_long_journal_raises_error(self):
         ref = copy(self.valid_article)
 
-        #ref.journal = None
-        #with self.assertRaises(UserInputError):
-        #    ref.validate()
+        ref.journal = None
+        with self.assertRaises(UserInputError):
+            ref.validate()
         
         ref.journal = "a"*2
         with self.assertRaises(UserInputError):
@@ -116,9 +116,9 @@ class TestRefValidation(unittest.TestCase):
     def test_missing_or_too_short_or_long_publisher_raises_error(self):
         ref = copy(self.valid_inproceedings)
 
-        #ref.publisher = None
-        #with self.assertRaises(UserInputError):
-        #    ref.validate()
+        ref.publisher = None
+        with self.assertRaises(UserInputError):
+            ref.validate()
         
         ref.publisher = "a"*2
         with self.assertRaises(UserInputError):
