@@ -42,6 +42,7 @@ def route_add():
 
     return redirect("/")
 
+# pylint: disable=unused-argument
 @app.route("/<int:ref_id>/add_tags", methods=["GET", "POST"])
 def add_tags(ref_id):
     if request.method == "GET":
