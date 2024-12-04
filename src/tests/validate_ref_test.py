@@ -1,7 +1,6 @@
 from copy import copy
 import unittest
-from entities.ref import Ref
-from util import validate_ref, UserInputError
+from entities.ref import Ref, UserInputError
 
 class TestRefValidation(unittest.TestCase):
     def setUp(self):
@@ -16,84 +15,84 @@ class TestRefValidation(unittest.TestCase):
         )
 
     def test_valid_ref_does_not_raise_error(self):
-        validate_ref(self.valid_ref)
+        self.valid_ref.validate()
     
     def test_missing_or_invalid_ref_type_raises_error(self):
         ref = copy(self.valid_ref)
 
         ref.ref_type = None
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
         
         ref.ref_type = "something"
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
     
     def test_missing_or_too_long_ref_name_raises_error(self):
         ref = copy(self.valid_ref)
 
         ref.ref_name = None
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
         
         ref.ref_name = "a"*101
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
 
     def test_not_alphanumeric_ref_name_raises_error(self):
         ref = copy(self.valid_ref)
 
         ref.ref_name = "ref name"
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
 
     def test_missing_or_too_short_or_long_author_raises_error(self):
         ref = copy(self.valid_ref)
 
         ref.author = None
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
         
         ref.author = "a"*2
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
 
         ref.author = "a"*101
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
     
     def test_missing_or_too_short_or_long_title_raises_error(self):
         ref = copy(self.valid_ref)
 
         ref.author = None
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
         
         ref.author = "a"*2
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
 
         ref.author = "a"*251
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
     
     def test_missing_or_invalid_year_raises_error(self):
         ref = copy(self.valid_ref)
 
         ref.year = None
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
         
         ref.year = 1600
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
 
         ref.year = 2100
         with self.assertRaises(UserInputError):
-            validate_ref(ref)
+            ref.validate()
     
     def test_missing_publisher_does_not_raise_error(self):
         ref = copy(self.valid_ref)
 
         ref.publisher = None
-        validate_ref(ref)
+        ref.validate()

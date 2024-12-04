@@ -1,5 +1,8 @@
 from dataclasses import dataclass, fields
 
+class UserInputError(Exception):
+    pass
+
 @dataclass
 class Ref:
     id: int = None
@@ -40,3 +43,43 @@ class Ref:
                 res += f"    {field.name} = {{{value}}},\n"
         res += "}"
         return res
+
+    def _validate_article(self):
+        if not self.author:
+            raise UserInputError("Author field is required.")
+        if not 3 <= len(self.author) <= 100:
+            raise UserInputError(
+                "Author name must be between 3 and 100 characters long"
+            )
+
+        if not self.title:
+            raise UserInputError("Title field is required.")
+        if not 3 <= len(self.title) <= 250:
+            raise UserInputError(
+                "Title must be between 3 and 250 characters long"
+            )
+
+        if not self.year:
+            raise UserInputError("Year field is required.")
+        if not 1600 < self.year < 2100:
+            raise UserInputError("Year must be between 1600 and 2100")
+
+    def validate(self):
+        if not self.ref_type:
+            raise UserInputError("Reference type is required.")
+
+        if not self.ref_name:
+            raise UserInputError("Reference name is required.")
+        if not len(self.ref_name) <= 100:
+            raise UserInputError(
+                "Reference name must be less than 100 characters long."
+            )
+        if not self.ref_name.isalnum():
+            raise UserInputError(
+                "Refrerence name must only contain letters and numbers"
+            )
+
+        if self.ref_type == "article":
+            self._validate_article()
+        else:
+            raise UserInputError("Invalid reference type.")

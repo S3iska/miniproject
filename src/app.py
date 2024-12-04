@@ -1,7 +1,6 @@
 from flask import redirect, render_template, request, jsonify
 from db_helper import reset_db
 from config import app, test_env, db
-from util import validate_ref
 from repositories.ref_repository import create_ref, get_refs
 from repositories.ref_repository import delete_all_refs, delete_ref
 from entities.ref import Ref
@@ -36,7 +35,7 @@ def route_add():
     )
 
     try:
-        validate_ref(new_ref)
+        new_ref.validate()
         create_ref(db, new_ref)
     except Exception as e:
         return render_template("add.html", error_msg=str(e))
