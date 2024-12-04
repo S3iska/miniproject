@@ -53,15 +53,13 @@
             Address: <input class="form-control" type="text" name="address"/></br>
             Editor: <input class="form-control" type="text" name="editor"/></br>
             Organization: <input class="form-control" type="text" name="organization"/></br>
-            <div>
-                <button type="submit" class="btn btn-primary">Add</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
 
     <div id="bookForm" class="form-section">
         <form action="/add" method="POST">
-            <input type="hidden" name="ref_type" value="book"/>>
+            <input type="hidden" name="ref_type" value="book"/>
             Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
             Author: <input class="form-control" type="text" name="author" required/></br>
             Title: <input class="form-control" type="text" name="title" required/></br>
@@ -76,10 +74,7 @@
             Address: <input class="form-control" type="text" name="address"/></br>
             Edition: <input class="form-control" type="text" name="edition"/></br>
             URL: <input class="form-control" type="text" name="url"/></br>
-            Editor: <input class="form-control" type="text" name="editor"/></br>
-            <div>
-                <button type="submit" class="btn btn-primary">Add</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
     {% if error_msg %}
