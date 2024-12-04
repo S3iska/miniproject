@@ -3,7 +3,7 @@ from db_helper import reset_db
 from config import app, test_env, db
 from repositories.ref_repository import create_ref, get_refs
 from repositories.ref_repository import delete_all_refs, delete_ref
-from repositories.tag_repository import get_tags
+from repositories.tag_repository import get_tags, link_many_tags_to_ref
 from entities.ref import Ref
 
 
@@ -43,10 +43,17 @@ def route_add():
 
     return redirect("/")
 
+
 @app.route("/<int:ref_id>/add_tags", methods=["GET", "POST"])
 def add_tags(ref_id):
     if request.method == "GET":
-        return render_template("add_tags.html", tags=get_tags(db), ref_id=ref_id)
+        return render_template("add_tags.html",
+                               tags=get_tags(db), ref_id=ref_id)
+    if request.method == "POST":
+        tag_names = request.form.getlist("tag_name")
+        if tag_names is None:
+            return redirect("/")
+        link_many_tags_to_ref(db, ref_id, tag_names)
 
     return redirect("/")
 
@@ -56,10 +63,12 @@ def delete_all():
     delete_all_refs(db)
     return redirect("/")
 
+
 @app.route("/<int:ref_id>/delete_ref", methods=["POST"])
 def delete_reference(ref_id):
     delete_ref(db, ref_id)
     return redirect("/")
+
 
 if test_env:
     @app.route("/reset_db")
