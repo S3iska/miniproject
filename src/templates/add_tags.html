@@ -3,14 +3,12 @@
 {% block body %}
 
 <div class="m-3 w-25">
-    <form action="/add" method="POST">
+    <form action="/add_tags" method="POST">
         <h2>Add tags to reference</h2>
         <div id="tagform" class="tagform">
-            <input id="tagname" type="text" name="tag_name" size="60" minlength="1" placeholder="Tag" required>
+            <input id="tag_id" type="text" name="tag_name" size="60" minlength="3" placeholder="Tag" required>
         </div>
-
-        <script src="{{url_for('static', filename='script.js')}}"></script>
-
+        <br>
         <div class="tagform">
             <button onclick="add()" class="btn btn-primary">Lisää</button>
             <button onclick="remove()" class="btn btn-danger">Poista</button>
@@ -19,6 +17,7 @@
         <div>
             <button type="submit" class="btn btn-primary">Add</button>
         </div>
+        <script src="{{url_for('static', filename='script.js')}}"></script>
     </form>
 </div>
 
