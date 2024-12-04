@@ -50,7 +50,7 @@ Set Ref type
 
 Set Ref Name
     [Arguments]  ${refname}
-    Input Text  refname  ${refname}
+    Input Text  ref_name  ${refname}
 
 Set Author
     [Arguments]  ${refname}

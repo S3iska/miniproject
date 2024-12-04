@@ -23,9 +23,10 @@ def route_add():
         return render_template("add.html")
 
     fields = [
-        "author", "title", "year", "publisher", "journal", "volume", 
-        "pages", "month", "doi", "note", "key", "series", "address", 
-        "edition", "url", "booktitle", "editor", "organization"
+        "ref_type", "ref_name", "author", "title", "year", "publisher",
+        "journal", "volume", "pages", "month", "doi", "note", "key", 
+        "series", "address",  "edition", "url", "booktitle", "editor", 
+        "organization"
     ]
 
     form_data = {}
@@ -34,14 +35,9 @@ def route_add():
         value = request.form.get(field)
         if field == "year" and value is not None:
             value = int(value)
-        form_data[field] = value
+        form_data[field] = value if value != "" else None
 
-    form_data["ref_type"] = request.form.get("type")
-    form_data["ref_name"] = request.form.get("refname")
-
-    ref_fields = ["ref_type", "ref_name"] + fields
-
-    new_ref = Ref(**{key: form_data.get(key) for key in ref_fields})
+    new_ref = Ref(**{key: form_data.get(key) for key in fields})
     try:
         new_ref.validate()
         create_ref(db, new_ref)

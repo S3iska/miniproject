@@ -5,7 +5,7 @@
     <h2>Add a reference</h2>
     <br>
     <form action="/add" method="POST">
-        <select id="typeSelect" name="type" onchange="showForm()">
+        <select id="typeSelect" name="ref_type" onchange="showForm()">
             <option value="">--Choose an reference type</option>
             <option value="article">Article</option>
             <option value="inproceedings">Inproceedings</option>
@@ -14,7 +14,7 @@
         <br>
 
         <!--<input type="hidden" name="type" value="article"/>-->
-        Reference name: <input class="form-control" type="text" name="refname" required/></br>
+        Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
         Author: <input class="form-control" type="text" name="author" required/></br>
         Title: <input class="form-control" type="text" name="title" required/></br>
         Year: <input class="form-control" type="number" name="year" required/></br>
