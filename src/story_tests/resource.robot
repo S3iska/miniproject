@@ -19,7 +19,7 @@ Open And Configure Browser
     IF  $HEADLESS == 'true'
         Set Selenium Speed  0.1
         Call Method  ${options}  add_argument  --headless
-        ${window_size}  Set Variable  --window-size=${1920},${1080}
+        ${window_size}  Set Variable  --window-size=${1920},${3000}
         Call Method  ${options}  add_argument  ${window_size}
     ELSE
         Set Selenium Speed  ${DELAY}
