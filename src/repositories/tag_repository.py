@@ -1,5 +1,5 @@
 from sqlalchemy import text
-from entities.tag import Tag
+from entities.tag import Tag, validate_tag
 
 
 def create_tag(db, tag: Tag):
@@ -20,5 +20,27 @@ def get_tags(db):
     result = db.session.execute(query)
     tags = []
     for row in result:
-        tags.append(Tag(tag_id=row.tag_id, tag_name=row.tag_name))
+        new_tag = Tag(tag_id=row.tag_id, tag_name=row.tag_name)
+        validate_tag(new_tag)
+        tags.append(new_tag)
     return tags
+
+
+def link_tag_to_ref(db, ref_id, tag_name):
+    checkquery = text("SELECT tag_id, tag_name FROM tags \
+            WHERE tag_name = :tag_name")
+    result = db.session.execute(checkquery, {"tag_name": tag_name}).fetchone()
+    if result.tag_name != tag_name:
+        new_tag = Tag(tag_name=tag_name)
+        validate_tag(new_tag)
+        create_tag(db, new_tag)
+        link_tag = new_tag
+    else:
+        link_tag = Tag(result.tag_id, result.tag_name)
+    try:
+        sql = text("INSERT INTO ref_tags (ref_id, tag_id) \
+                VALUES (:ref_id, :tag_id)")
+        db.session.execute(sql, {"ref_id": ref_id, "tag_id": link_tag.tag_id})
+        db.session.commit()
+    except Exception:
+        db.session.rollback()

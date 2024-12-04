@@ -18,6 +18,3 @@ def validate_tag(tag: Tag):
         raise UserInputError("Tag must be atleast three characters long.")
     if not tag.tag_name.isalnum():
         raise UserInputError("Tag can only contain letters and numbers.")
-
-    if not tag.tag_id:
-        raise UserInputError("Tag does not have an id.")
