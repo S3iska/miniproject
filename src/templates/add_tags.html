@@ -11,14 +11,13 @@
             </div>
             <br>
             <div class="tagform">
-                <button onclick="add()" class="btn btn-primary">Add</button>
-                <button onclick="remove()" class="btn btn-danger">Delete</button>
+                <button type="button" onclick="add()" class="btn btn-primary">Add</button>
+                <button type="button" onclick="remove()" class="btn btn-danger">Delete</button>
             </div>
             <br>
             <div>
                 <button type="submit" class="btn btn-primary">Confirm</button>
-            </div>
-            <script src="{{url_for('static', filename='script.js')}}"></script>
+            </div>  
         </form>
     </div>
 
@@ -26,10 +25,12 @@
         <h2>All tags</h2>
         {% for tag in tags|sort(attribute='tag_name')%}
         <li><hidden {{ tag.id }}></hidden>
-            {{ tag.tag_name }}<br>
+            <button type="button" onclick="addTag(this)" class="btn btn-primary tag_button">{{ tag.tag_name }}</button><br>
             <br>
         </li>
         {% endfor %}
     </div>
 </<div>
+
+<script src="{{url_for('static', filename='script.js')}}"></script>
 {% endblock %}
