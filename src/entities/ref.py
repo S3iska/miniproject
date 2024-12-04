@@ -1,7 +1,5 @@
 from dataclasses import dataclass, fields
-
-class UserInputError(Exception):
-    pass
+from util import UserInputError, validate_string
 
 @dataclass
 class Ref:
@@ -44,42 +42,36 @@ class Ref:
         res += "}"
         return res
 
-    def _validate_article(self):
-        if not self.author:
-            raise UserInputError("Author field is required.")
-        if not 3 <= len(self.author) <= 100:
-            raise UserInputError(
-                "Author name must be between 3 and 100 characters long"
-            )
-
-        if not self.title:
-            raise UserInputError("Title field is required.")
-        if not 3 <= len(self.title) <= 250:
-            raise UserInputError(
-                "Title must be between 3 and 250 characters long"
-            )
-
-        if not self.year:
-            raise UserInputError("Year field is required.")
-        if not 1600 < self.year < 2100:
-            raise UserInputError("Year must be between 1600 and 2100")
 
     def validate(self):
-        if not self.ref_type:
-            raise UserInputError("Reference type is required.")
+        if self.ref_type not in ["article", "book", "inproceedings"]:
+            raise UserInputError("Reference type is missing or invalid.")
 
-        if not self.ref_name:
-            raise UserInputError("Reference name is required.")
-        if not len(self.ref_name) <= 100:
-            raise UserInputError(
-                "Reference name must be less than 100 characters long."
-            )
-        if not self.ref_name.isalnum():
-            raise UserInputError(
-                "Refrerence name must only contain letters and numbers"
-            )
+        validate_string(self.ref_name, "Reference name", False, 1, 100)
+        validate_string(self.author, "Author", False, 3, 100)
+
+        if self.ref_type == "inproceedings":
+            validate_string(self.booktitle, "Book title", False, 3, 250)
+        else:
+            validate_string(self.title, "Title", False, 3, 250)
 
         if self.ref_type == "article":
-            self._validate_article()
+            validate_string(self.journal, "Journal", True, 3, 250)
         else:
-            raise UserInputError("Invalid reference type.")
+            validate_string(self.publisher, "Publisher", True, 3, 250)
+
+        if not (self.year and 1600 < self.year < 2100):
+            raise UserInputError("Year must be between 1600 and 2100")
+
+        validate_string(self.volume, "Volume", True, 1, 100)
+        validate_string(self.pages, "Pages", True, 1, 100)
+        validate_string(self.month, "Month", True, 1, 100)
+        validate_string(self.doi, "DOI", True, 1, 100)
+        validate_string(self.note, "Note", True, 1, 100)
+        validate_string(self.key, "Key", True, 1, 100)
+        validate_string(self.series, "Series", True, 1, 100)
+        validate_string(self.address, "Address", True, 1, 100)
+        validate_string(self.edition, "Edition", True, 1, 100)
+        validate_string(self.url, "URL", True, 1, 100)
+        validate_string(self.editor, "Editor", True, 1, 100)
+        validate_string(self.organization, "Organization", True, 1, 100)

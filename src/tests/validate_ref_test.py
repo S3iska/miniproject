@@ -1,6 +1,7 @@
 from copy import copy
 import unittest
-from entities.ref import Ref, UserInputError
+from entities.ref import Ref
+from util import UserInputError
 
 class TestRefValidation(unittest.TestCase):
     def setUp(self):
@@ -11,7 +12,7 @@ class TestRefValidation(unittest.TestCase):
             author = "test author",
             title = "test title",
             year = 1997,
-            publisher = "test publisher"
+            journal = "test publisher"
         )
 
     def test_valid_ref_does_not_raise_error(self):
@@ -36,13 +37,6 @@ class TestRefValidation(unittest.TestCase):
             ref.validate()
         
         ref.ref_name = "a"*101
-        with self.assertRaises(UserInputError):
-            ref.validate()
-
-    def test_not_alphanumeric_ref_name_raises_error(self):
-        ref = copy(self.valid_ref)
-
-        ref.ref_name = "ref name"
         with self.assertRaises(UserInputError):
             ref.validate()
 
@@ -90,9 +84,3 @@ class TestRefValidation(unittest.TestCase):
         ref.year = 2100
         with self.assertRaises(UserInputError):
             ref.validate()
-    
-    def test_missing_publisher_does_not_raise_error(self):
-        ref = copy(self.valid_ref)
-
-        ref.publisher = None
-        ref.validate()
