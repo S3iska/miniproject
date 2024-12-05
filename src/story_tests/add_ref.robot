@@ -7,6 +7,7 @@ Suite Setup      Open And Configure Browser
 Suite Teardown   Close Browser
 Test Setup       Setup Test Db
 
+
 *** Variables ***
 ${type}           article
 ${REF_NAME}       testref
@@ -28,6 +29,7 @@ ${URL}            Test URL
 ${BOOKTITLE}      Test Book Title
 ${EDITOR}         Test Editor
 ${ORGANIZATION}   Test Organization
+
 
 *** Test Cases ***
 Add Full Article Reference and Verify in Database
@@ -62,6 +64,7 @@ Add Full Article Reference and Verify in Database
 
     ${results}=     Get Refs From Database    &{criteria}
     Should Not Be Empty    ${results}    No references found for criteria: ${criteria}
+
 
 Add Full Book Reference and Verify in Database
     Go To Add Ref Page
@@ -99,6 +102,7 @@ Add Full Book Reference and Verify in Database
 
     ${results}=     Get Refs From Database    &{criteria}
     Should Not Be Empty    ${results}    No references found for criteria: ${criteria}
+
 
 Add Full Inproceedings Reference and Verify in Database
     Go To Add Ref Page
@@ -140,6 +144,56 @@ Add Full Inproceedings Reference and Verify in Database
 
     ${results}=     Get Refs From Database    &{criteria}
     Should Not Be Empty    ${results}    No references found for criteria: ${criteria}
+
+
+Not unexpected fields are shown:
+    Go To Add Ref Page
+    Set Ref type  article
+    Page Should Not Contain  xpath=//div[@id='articleForm']//form//input[@name='publisher']
+    Page Should Not Contain  xpath=//div[@id='articleForm']//form//input[@name='series']
+    Page Should Not Contain  xpath=//div[@id='articleForm']//form//input[@name='address']
+    Page Should Not Contain  xpath=//div[@id='articleForm']//form//input[@name='edition']
+    Page Should Not Contain  xpath=//div[@id='articleForm']//form//input[@name='url']
+    Page Should Not Contain  xpath=//div[@id='articleForm']//form//input[@name='booktitle']
+    Page Should Not Contain  xpath=//div[@id='articleForm']//form//input[@name='editor']
+    Page Should Not Contain  xpath=//div[@id='articleForm']//form//input[@name='organization']
+
+    Set Ref type  book
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='journal']
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='pages']
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='doi']
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='booktitle']
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='editor']
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='organization']
+
+    Set Ref type  inproceedings
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='journal']
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='url']
+    Page Should Not Contain  xpath=//div[@id='bookForm']//form//input[@name='volume']
+
+
+Error message is shown with too short title
+    Go To Add Ref Page
+    Set Ref type  article
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='ref_name']  ${REF_NAME}
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='author']    ${AUTHOR}
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='title']     b
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='journal']   ${JOURNAL}
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='year']      ${YEAR}
+    Click Button  xpath=//div[@id='articleForm']//form//button
+    Page Should Contain  ERROR: Title must be between
+
+
+Error message is shown with invalid year
+    Go To Add Ref Page
+    Set Ref type  article
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='ref_name']  ${REF_NAME}
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='author']    ${AUTHOR}
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='title']     ${TITLE}
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='journal']   ${JOURNAL}
+    Input Text  xpath=//div[@id='articleForm']//form//input[@name='year']      1500
+    Click Button  xpath=//div[@id='articleForm']//form//button
+    Page Should Contain  ERROR: Year must be between
 
 *** Keywords ***
 Set Ref type
