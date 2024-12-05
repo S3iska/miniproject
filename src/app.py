@@ -54,9 +54,10 @@ def add_tags(ref_id):
                                tags=get_tags(db), ref_id=ref_id)
     if request.method == "POST":
         tag_names = request.form.getlist("tag_name")
-        if tag_names is None:
-            return redirect("/")
-        link_many_tags_to_ref(db, ref_id, tag_names)
+        try:
+            link_many_tags_to_ref(db, ref_id, tag_names)
+        except Exception as e:
+            render_template("add_tags.html", error_msg=str(e))
 
     return redirect("/")
 

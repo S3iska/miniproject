@@ -19,6 +19,10 @@
                 <button type="submit" class="btn btn-primary">Confirm</button>
             </div>  
         </form>
+        {% if error_msg %}
+        <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
+        {% endif %}
+
     </div>
 
     <div class="col p-2">
@@ -30,7 +34,7 @@
         </li>
         {% endfor %}
     </div>
-</<div>
+    </<div>
 
-<script src="{{url_for('static', filename='script.js')}}"></script>
-{% endblock %}
+        <script src="{{url_for('static', filename='script.js')}}"></script>
+        {% endblock %}
