@@ -2,26 +2,155 @@
 {% block title %}Add references{% endblock %}
 {% block body %}
 <div class="m-3 w-25">
-    <form action="/add" method="POST">
-        <h2>Add an article reference</h2>
-        <input type="hidden" name="type" value="article"/>
-        Reference name: <input class="form-control" type="text" name="refname" required/></br>
-        Author: <input class="form-control" type="text" name="author" required/></br>
-        Title: <input class="form-control" type="text" name="title" required/></br>
-        Year: <input class="form-control" type="number" name="year" required/></br>
-        Publisher: <input class="form-control" type="text" name="publisher" required/></br>
-        <div>
-        <button type="submit" class="btn btn-primary">Add</button>
-        </div>
-        {% if error_msg %}
-            <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
-            <script>
-                function hide_error_box() {
-                    document.getElementById("error_box").style.display = "none";
-                }
-                setTimeout(hide_error_box, 5000)
-            </script>
-        {% endif %}
-    </form>
+    <h2>Add a reference</h2>
+    <br>
+        <select id="typeSelect" name="ref_type" onchange="showForm()">
+            <option value="">--Choose an reference type</option>
+            <option value="article">Article</option>
+            <option value="inproceedings">Inproceedings</option>
+            <option value="book">Book</option>
+        </select>
+    <div id="articleForm" class="form-section">
+        <form class="form-inline" action="/add" method="POST">
+            <input type="hidden" name="ref_type" value="article"/>
+            <br>
+            Reference name:
+            <div class="input-group">
+                <input class="form-control" type="text" name="ref_name" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Author: 
+            <div class="input-group">
+                <input class="form-control" type="text" name="author" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Title:
+            <div class="input-group">
+                <input class="form-control" type="text" name="title" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Year:
+            <div class="input-group">
+                <input class="form-control" type="text" name="year" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Journal:
+            <div class="input-group">
+                <input class="form-control" type="text" name="journal" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Volume: <input class="form-control" type="text" name="volume"/></br>
+            Pages: <input class="form-control" type="text" name="pages"/></br>
+            Month: <input class="form-control" type="text" name="month"/></br>
+            DOI: <input class="form-control" type="text" name="doi"/></br>
+            Note: <input class="form-control" type="text" name="note"/></br>
+            Key: <input class="form-control" type="text" name="key"/></br>
+            <div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+    <div id="inproceedingsForm" class="form-section">
+        <form action="/add" method="POST">
+            <input type="hidden" name="ref_type" value="inproceedings"/>
+            <br>
+            Reference name:
+            <div class="input-group">
+                <input class="form-control" type="text" name="ref_name" required/>
+                <span style="color:red;" class="input-group-text">*</span><br><br>
+            </div>
+            <br>
+            Author: 
+            <div class="input-group">
+                <input class="form-control" type="text" name="author" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Title:
+            <div class="input-group">
+                <input class="form-control" type="text" name="title" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Year:
+            <div class="input-group">
+                <input class="form-control" type="text" name="year" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Booktitle: 
+            <div class="input-group">
+                <input class="form-control" type="text" name="booktitle" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Publisher: <input class="form-control" type="text" name="publisher"/></br>
+            Volume: <input class="form-control" type="text" name="volume"/></br>
+            Pages: <input class="form-control" type="text" name="pages"/></br>
+            Month: <input class="form-control" type="text" name="month"/></br>
+            Note: <input class="form-control" type="text" name="note"/></br>
+            Key: <input class="form-control" type="text" name="key"/></br>
+            Series: <input class="form-control" type="text" name="series"/></br>
+            Address: <input class="form-control" type="text" name="address"/></br>
+            Editor: <input class="form-control" type="text" name="editor"/></br>
+            Organization: <input class="form-control" type="text" name="organization"/></br>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+    <div id="bookForm" class="form-section">
+        <form action="/add" method="POST">
+            <input type="hidden" name="ref_type" value="book"/>
+            <br>
+            Reference name:
+            <div class="input-group">
+                <input class="form-control" type="text" name="ref_name" required/>
+                <span style="color:red;" class="input-group-text">*</span><br><br>
+            </div>
+            <br>
+            Author: 
+            <div class="input-group">
+                <input class="form-control" type="text" name="author" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Title:
+            <div class="input-group">
+                <input class="form-control" type="text" name="title" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Year:
+            <div class="input-group">
+                <input class="form-control" type="text" name="year" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Publisher:
+            <div class="input-group">
+                <input class="form-control" type="text" name="publisher" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Volume: <input class="form-control" type="text" name="volume"/></br>
+            Month: <input class="form-control" type="text" name="month"/></br>
+            Note: <input class="form-control" type="text" name="note"/></br>
+            Key: <input class="form-control" type="text" name="key"/></br>
+            Series: <input class="form-control" type="text" name="series"/></br>
+            Address: <input class="form-control" type="text" name="address"/></br>
+            Edition: <input class="form-control" type="text" name="edition"/></br>
+            URL: <input class="form-control" type="text" name="url"/></br>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+    {% if error_msg %}
+    <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
+    {% endif %}
+
 </div>
+<script src="{{url_for('static', filename='script.js')}}"></script>
 {% endblock %}

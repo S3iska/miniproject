@@ -1,7 +1,6 @@
 from copy import copy
 import unittest
 from entities.ref import Ref
-from util import validate_ref, UserInputError
 
 class TestRefToBibtex(unittest.TestCase):
     def setUp(self):

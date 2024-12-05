@@ -1,44 +1,14 @@
-from entities.ref import Ref
-
 class UserInputError(Exception):
     pass
 
-def validate_article_ref(ref: Ref):
-    if not ref.author:
-        raise UserInputError("Author field is required.")
-    if not 3 <= len(ref.author) <= 100:
+def validate_string(value, name, optional, min_length, max_length):
+    if value is None or value == "":
+        if not optional:
+            raise UserInputError(f"{name} is required.")
+        return
+
+    if not min_length <= len(value) <= max_length:
         raise UserInputError(
-            "Author name must be between 3 and 100 characters long"
+            f"{name} must be between {min_length} and {max_length}"
+            " characters long."
         )
-
-    if not ref.title:
-        raise UserInputError("Title field is required.")
-    if not 3 <= len(ref.title) <= 250:
-        raise UserInputError(
-            "Title must be between 3 and 250 characters long"
-        )
-
-    if not ref.year:
-        raise UserInputError("Year field is required.")
-    if not 1600 < ref.year < 2100:
-        raise UserInputError("Year must be between 1600 and 2100")
-
-def validate_ref(ref: Ref):
-    if not ref.ref_type:
-        raise UserInputError("Reference type is required.")
-
-    if not ref.ref_name:
-        raise UserInputError("Reference name is required.")
-    if not len(ref.ref_name) <= 100:
-        raise UserInputError(
-            "Reference name must be less than 100 characters long."
-        )
-    if not ref.ref_name.isalnum():
-        raise UserInputError(
-            "Refrerence name must only contain letters and numbers"
-        )
-
-    if ref.ref_type == "article":
-        validate_article_ref(ref)
-    else:
-        raise UserInputError("Invalid reference type.")

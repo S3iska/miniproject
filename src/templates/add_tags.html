@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}Add tags to reference{% endblock %}
+
+{% block body %}
+<div class="container row">
+    <div class="col p-2">
+        <form action="/{{ ref_id }}/add_tags" method="POST">
+            <h2>Add tags to reference</h2>
+            <div id="tagform" class="tagform">
+                <input id="tag_id" type="text" name="tag_name" size="60" minlength="3" placeholder="Tag" required>
+            </div>
+            <br>
+            <div class="tagform">
+                <button type="button" onclick="add()" class="btn btn-primary">Add</button>
+                <button type="button" onclick="remove()" class="btn btn-danger">Delete</button>
+            </div>
+            <br>
+            <div>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>  
+        </form>
+        {% if error_msg %}
+        <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
+        {% endif %}
+
+    </div>
+
+    <div class="col p-2">
+        <h2>All tags</h2>
+        {% for tag in tags|sort(attribute='tag_name')%}
+        <li><hidden {{ tag.id }}></hidden>
+            <button type="button" onclick="addTag(this)" class="btn btn-primary tag_button">{{ tag.tag_name }}</button><br>
+            <br>
+        </li>
+        {% endfor %}
+    </div>
+    </<div>
+
+        <script src="{{url_for('static', filename='script.js')}}"></script>
+        {% endblock %}

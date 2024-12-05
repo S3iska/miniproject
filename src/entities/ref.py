@@ -1,4 +1,5 @@
 from dataclasses import dataclass, fields
+from util import UserInputError, validate_string
 
 @dataclass
 class Ref:
@@ -40,3 +41,37 @@ class Ref:
                 res += f"    {field.name} = {{{value}}},\n"
         res += "}"
         return res
+
+
+    def validate(self):
+        if self.ref_type not in ["article", "book", "inproceedings"]:
+            raise UserInputError("Reference type is missing or invalid.")
+
+        validate_string(self.ref_name, "Reference name", False, 1, 100)
+        validate_string(self.author, "Author", False, 3, 100)
+
+        if self.ref_type == "inproceedings":
+            validate_string(self.booktitle, "Book title", False, 3, 250)
+        else:
+            validate_string(self.title, "Title", False, 3, 250)
+
+        if self.ref_type == "article":
+            validate_string(self.journal, "Journal", False, 3, 250)
+        else:
+            validate_string(self.publisher, "Publisher", False, 3, 250)
+
+        if not (self.year and 1600 < self.year < 2100):
+            raise UserInputError("Year must be between 1600 and 2100")
+
+        validate_string(self.volume, "Volume", True, 1, 250)
+        validate_string(self.pages, "Pages", True, 1, 250)
+        validate_string(self.month, "Month", True, 1, 250)
+        validate_string(self.doi, "DOI", True, 1, 250)
+        validate_string(self.note, "Note", True, 1, 250)
+        validate_string(self.key, "Key", True, 1, 250)
+        validate_string(self.series, "Series", True, 1, 250)
+        validate_string(self.address, "Address", True, 1, 250)
+        validate_string(self.edition, "Edition", True, 1, 250)
+        validate_string(self.url, "URL", True, 1, 250)
+        validate_string(self.editor, "Editor", True, 1, 250)
+        validate_string(self.organization, "Organization", True, 1, 250)

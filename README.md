@@ -1,6 +1,7 @@
 # Ohtu-kurssin miniprojekti
 
 [![Workflow badge](https://github.com/S3iska/miniproject/actions/workflows/ci.yaml/badge.svg)](https://github.com/S3iska/miniproject/actions)
+[![codecov](https://codecov.io/gh/S3iska/miniproject/graph/badge.svg?token=HQU6OZG1W1)](https://codecov.io/gh/S3iska/miniproject)
 
 [Product backlog](https://docs.google.com/spreadsheets/d/1apMJDKGZPF-bFKYbJuen6lBlI-GctVNdVvS5p9Ai9UU/edit?usp=sharing)
 
