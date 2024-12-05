@@ -44,7 +44,6 @@ class Ref:
 
 
     def validate(self):
-        print(self.ref_type)
         if self.ref_type not in ["article", "book", "inproceedings"]:
             raise UserInputError("Reference type is missing or invalid.")
 
