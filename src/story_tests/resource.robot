@@ -2,12 +2,14 @@
 Library  SeleniumLibrary
 
 *** Variables ***
-${SERVER}     localhost:5001
-${DELAY}      0.5 seconds
-${HOME_URL}   http://${SERVER}
-${ADD_URL}    http://${SERVER}/add
-${BROWSER}    chrome
-${HEADLESS}   false
+${SERVER}          localhost:5001
+${DELAY}           0.5 seconds
+${HOME_URL}        http://${SERVER}
+${ADD_URL}         http://${SERVER}/add
+${ADD_TAG_URL}     http://${SERVER}/100/add_tags
+${ADD_TAG_HREF}    100/add_tags
+${BROWSER}         chrome
+${HEADLESS}        false
 
 *** Keywords ***
 Open And Configure Browser
@@ -35,3 +37,7 @@ Go To Add Ref Page
     Click Link  Add a new reference
     Location Should Be  ${ADD_URL}
 
+Go To Add Tag Page
+    Go To Home Page
+    Click Element   xpath=//a[@href="${ADD_TAG_HREF}"]
+    Location Should Be  ${ADD_TAG_URL}
