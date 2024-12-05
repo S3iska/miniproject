@@ -1,3 +1,5 @@
 [run]
-omit =
-    *src/app.py, *src/repositories
+omit=src/app.py, src/repositories/**, src/tests/**
+
+[report]
+omit=src/app.py, src/repositories/**, src/tests/**
