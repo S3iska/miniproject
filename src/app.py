@@ -57,7 +57,8 @@ def add_tags(ref_id):
         try:
             link_many_tags_to_ref(db, ref_id, tag_names)
         except Exception as e:
-            render_template("add_tags.html", error_msg=str(e))
+            return render_template("add_tags.html", error_msg=str(e),
+                                   tags=get_tags(db), ref_id=ref_id)
 
     return redirect("/")
 
