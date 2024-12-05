@@ -10,16 +10,39 @@
             <option value="inproceedings">Inproceedings</option>
             <option value="book">Book</option>
         </select>
-        <br>
-
     <div id="articleForm" class="form-section">
-        <form action="/add" method="POST">
+        <form class="form-inline" action="/add" method="POST">
             <input type="hidden" name="ref_type" value="article"/>
-            Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
-            Author: <input class="form-control" type="text" name="author" required/></br>
-            Title: <input class="form-control" type="text" name="title" required/></br>
-            Year: <input class="form-control" type="number" name="year" required/></br>
-            Journal: <input class="form-control" type="text" name="journal" required/></br>
+            <br>
+            Reference name:
+            <div class="input-group">
+                <input class="form-control" type="text" name="ref_name" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Author: 
+            <div class="input-group">
+                <input class="form-control" type="text" name="author" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Title:
+            <div class="input-group">
+                <input class="form-control" type="text" name="title" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Year:
+            <div class="input-group">
+                <input class="form-control" type="text" name="year" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Journal:
+            <div class="input-group">
+                <input class="form-control" type="text" name="journal" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
             <br>
             Volume: <input class="form-control" type="text" name="volume"/></br>
             Pages: <input class="form-control" type="text" name="pages"/></br>
@@ -32,16 +55,39 @@
             </div>
         </form>
     </div>
-
-
     <div id="inproceedingsForm" class="form-section">
         <form action="/add" method="POST">
             <input type="hidden" name="ref_type" value="inproceedings"/>
-            Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
-            Author: <input class="form-control" type="text" name="author" required/></br>
-            Title: <input class="form-control" type="text" name="title" required/></br>
-            Year: <input class="form-control" type="number" name="year" required/></br>
-            Booktitle: <input class="form-control" type="text" name="booktitle" required/></br>
+            <br>
+            Reference name:
+            <div class="input-group">
+                <input class="form-control" type="text" name="ref_name" required/>
+                <span style="color:red;" class="input-group-text">*</span><br><br>
+            </div>
+
+            Author: 
+            <div class="input-group">
+                <input class="form-control" type="text" name="author" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Title:
+            <div class="input-group">
+                <input class="form-control" type="text" name="title" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Year:
+            <div class="input-group">
+                <input class="form-control" type="text" name="year" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Booktitle: 
+            <div class="input-group">
+                <input class="form-control" type="text" name="booktitle" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
             <br>
             Publisher: <input class="form-control" type="text" name="publisher"/></br>
             Volume: <input class="form-control" type="text" name="volume"/></br>
@@ -56,15 +102,39 @@
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
-
     <div id="bookForm" class="form-section">
         <form action="/add" method="POST">
             <input type="hidden" name="ref_type" value="book"/>
-            Reference name: <input class="form-control" type="text" name="ref_name" required/></br>
-            Author: <input class="form-control" type="text" name="author" required/></br>
-            Title: <input class="form-control" type="text" name="title" required/></br>
-            Year: <input class="form-control" type="number" name="year" required/></br>
-            Publisher: <input class="form-control" type="text" name="publisher" required/></br>
+            <br>
+            Reference name:
+            <div class="input-group">
+                <input class="form-control" type="text" name="ref_name" required/>
+                <span style="color:red;" class="input-group-text">*</span><br><br>
+            </div>
+
+            Author: 
+            <div class="input-group">
+                <input class="form-control" type="text" name="author" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Title:
+            <div class="input-group">
+                <input class="form-control" type="text" name="title" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Year:
+            <div class="input-group">
+                <input class="form-control" type="text" name="year" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
+            <br>
+            Publisher:
+            <div class="input-group">
+                <input class="form-control" type="text" name="publisher" required/>
+                <span style="color:red;" class="input-group-text">*</span><br>
+            </div>
             <br>
             Volume: <input class="form-control" type="text" name="volume"/></br>
             Month: <input class="form-control" type="text" name="month"/></br>
