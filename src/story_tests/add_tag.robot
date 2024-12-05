@@ -17,3 +17,7 @@ Add a Tag
     Go To Home Page
     Page Should Contain    ${TAG_NAME}
 
+One Or Multiple Tags
+    Go To Home Page
+    Page Should Contain  AMD
+    Page Should Contain  Intel
