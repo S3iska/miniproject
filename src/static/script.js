@@ -14,18 +14,25 @@ function add(){
 
 
 function addTag(button){
-  var newField = document.createElement("input");
-  newField.setAttribute("id","tag_id");
-  newField.setAttribute("type","text");
-  newField.setAttribute("name","tag_name");
-  newField.setAttribute("size",60);
-  newField.setAttribute("minlength",3);
-  newField.setAttribute("placeholder","Tag");
-  newField.setAttribute("required","");
 
+  var existingField = document.querySelector("#tag_id");
   var buttonText = button.textContent || button.innerText;
-  newField.value = buttonText;
-  tagform.appendChild(newField);
+
+  if (existingField && existingField.value === "") {
+    existingField.value = buttonText;
+  } else {
+    var newField = document.createElement("input");
+
+    newField.setAttribute("id", "tag_id");
+    newField.setAttribute("type", "text");
+    newField.setAttribute("name", "tag_name");
+    newField.setAttribute("size", 60);
+    newField.setAttribute("minlength", 3);
+    newField.setAttribute("placeholder", "Tag");
+    newField.setAttribute("required", "");
+    newField.value = buttonText;
+    tagform.appendChild(newField);
+  }
 }
 
 
@@ -47,9 +54,9 @@ function showForm() {
   document.getElementById("articleForm").style.display = "none";
   document.getElementById("inproceedingsForm").style.display = "none";
   document.getElementById("bookForm").style.display = "none";
-  
+
   var selectedValue = document.getElementById("typeSelect").value;
-  
+
   if (selectedValue === "article") {
       document.getElementById("articleForm").style.display = "block";
   } else if (selectedValue === "inproceedings") {
