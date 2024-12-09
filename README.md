@@ -29,7 +29,7 @@
    ```
    poetry run python3 src/db_helper.py
    ```
-   
+
 ### Ohjelman ajaminen
 1. Siirry virtuaaliympäristöön:
 
@@ -40,7 +40,7 @@
    ```
    python3 src/index.py
    ```
-   
+
 ### Testien ajaminen virtuaaliympäristössä
 - Yksikkötestien ajaminen:
 
@@ -59,3 +59,4 @@
   - Asiakas näkee testien tilan CI-palvelun kautta
   - Koodi noudattaa määriteltyjä tyylivaatimuksia
   - Testit menevät läpi ja ovat automatisoitu
+
