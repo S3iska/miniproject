@@ -21,3 +21,4 @@
 * Pyritään jakamaan ominaisuuksia tasaisesti kaikille
 * Ominaisuuden tekevä kirjoittaa myös ominaisuuden testit
 * Isoista muutoksista tiedotetaan muita / kysytään muilta
+

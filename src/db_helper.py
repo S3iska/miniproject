@@ -15,8 +15,8 @@ def table_exists(name):
 
 def delete_table_if_exists(name):
     if table_exists(name):
-        sql = text(f"DROP TABLE {name} CASCADE;")
-        db.session.execute(sql)
+        sql = text("DROP TABLE :table_name CASCADE;")
+        db.session.execute(sql, {"table_name": name})
         db.session.commit()
 
 def setup_db():
