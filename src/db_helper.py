@@ -2,20 +2,20 @@ from sqlalchemy import text
 from config import db, app
 
 def table_exists(name):
-    sql_table_existence = text(
-        "SELECT EXISTS ("
-        "  SELECT 1"
-        "  FROM information_schema.tables"
-        f" WHERE table_name = '{name}'"
-        ")"
-    )
+    sql_table_existence = text("""
+        SELECT EXISTS (
+          SELECT 1
+          FROM information_schema.tables
+          WHERE table_name = :name
+        )
+    """)
 
     result = db.session.execute(sql_table_existence)
     return result.fetchall()[0][0]
 
 def delete_table_if_exists(name):
     if table_exists(name):
-        sql = text(f"DROP TABLE {name} CASCADE;")
+        sql = text("DROP TABLE IF EXISTS :table_name CASCADE;")
         db.session.execute(sql)
         db.session.commit()
 
