@@ -29,6 +29,18 @@ def get_tags(db):
         tags.append(new_tag)
     return tags
 
+def get_tags_by_ref(db, ref_id):
+    query = text("""
+                 SELECT t.tag_id, tag_name
+                 FROM ref_tags rt
+                 LEFT JOIN tags t ON rt.tag_id=t.tag_id WHERE rt.ref_id = :ref_id
+                 """)
+    result = db.session.execute(query, {"ref_id": ref_id}).fetchall()
+    tags = []
+    for row in result:
+        ref_tags = Tag(tag_id=row.tag_id, tag_name=row.tag_name)
+        tags.append(ref_tags)
+    return tags
 
 def link_tag_to_ref(db, ref_id, tag_name):
     checkquery = text("SELECT tag_id, tag_name FROM tags \

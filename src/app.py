@@ -3,7 +3,8 @@ from db_helper import reset_db
 from config import app, test_env, db
 from repositories.ref_repository import create_ref, get_refs
 from repositories.ref_repository import delete_all_refs, delete_ref
-from repositories.tag_repository import get_tags, link_many_tags_to_ref
+from repositories.tag_repository import get_tags, link_many_tags_to_ref, \
+                                        get_tags_by_ref
 from entities.ref import Ref
 
 
@@ -22,8 +23,8 @@ def route_add():
 
     fields = [
         "ref_type", "ref_name", "author", "title", "year", "publisher",
-        "journal", "volume", "pages", "month", "doi", "note", "key", 
-        "series", "address",  "edition", "url", "booktitle", "editor", 
+        "journal", "volume", "pages", "month", "doi", "note", "key",
+        "series", "address",  "edition", "url", "booktitle", "editor",
         "organization"
     ]
 
@@ -49,7 +50,8 @@ def route_add():
 def add_tags(ref_id):
     if request.method == "GET":
         return render_template("add_tags.html",
-                               tags=get_tags(db), ref_id=ref_id)
+                               tags=get_tags(db), ref_id=ref_id,
+                               ref_tags = get_tags_by_ref(db, ref_id))
     if request.method == "POST":
         tag_names = request.form.getlist("tag_name")
         try:
