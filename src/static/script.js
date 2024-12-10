@@ -1,5 +1,6 @@
 var tagform = document.getElementById("tagform");
-let isModified = false;
+let isModified = false;  // Flag to track if the form has been modified
+
 
 function add(){
   isModified = true;
@@ -85,6 +86,8 @@ setTimeout(hide_error_box, 5000)
 
 
 function showForm() {
+  isModified = true;
+
   document.getElementById("articleForm").style.display = "none";
   document.getElementById("inproceedingsForm").style.display = "none";
   document.getElementById("bookForm").style.display = "none";
@@ -106,37 +109,44 @@ document.addEventListener('DOMContentLoaded', function () {
   let userConfirmedNavigation = false;
 
   if (cancelButton) {
-    cancelButton.addEventListener('click', function (e) {
-      handleNavigation(e); // Yhdistetty logiikka funktioon
+    cancelButton.addEventListener('click', function (event) {
+      handleNavigation(event);
     });
 
-    const confirmButton = document.querySelector('button[type="submit"]');
-    if (confirmButton) {
-        confirmButton.addEventListener('click', function () {
-            isModified = false;
-            window.removeEventListener('beforeunload', beforeUnloadHandler);
+    const confirmButtons = document.querySelectorAll('button[type="submit"]'); // Multiple buttons
+    if (confirmButtons) {
+        confirmButtons.forEach(confirmButton => {
+            confirmButton.addEventListener('click', function () {
+                isModified = false;
+                window.removeEventListener('beforeunload', beforeUnloadHandler);
+            });
         });
     }
-  
+    
   }
 
-
-  window.addEventListener('beforeunload', function (e) {
+  window.addEventListener('beforeunload', function (event) {
     if (isModified && !userConfirmedNavigation) {
-      e.preventDefault();
-      e.returnValue = ''; // Required for some browsers
+      event.preventDefault();
+      event.returnValue = ''; // Required for some browsers
       return ''; // Required for some browsers
     }
     userConfirmedNavigation = false; // Reset if the user stays on the page
   });
 
+  // Add listener for popstate event (back/forward buttons)
+  window.addEventListener('popstate', function(event) {
+    if (isModified) {
+      handleNavigation();
+    }
+  });
 
-  function handleNavigation(e) {
+  function handleNavigation(event) {
       if (isModified) {
           const userConfirmed = confirm('You have unsaved changes. Do you really want to leave this page?');
           if (!userConfirmed) {
-              if (e) { // Prevent navigation only if the event exists (e.g., button click)
-                  e.preventDefault();
+              if (event) { // Prevent navigation only if the event exists (e.g., button click)
+                  event.preventDefault();
               }
           } else {
               userConfirmedNavigation = true;
@@ -146,12 +156,5 @@ document.addEventListener('DOMContentLoaded', function () {
           window.location.href = '/';
       }
   }
-
-
-  // Add listener for popstate event (back/forward buttons)
-  window.addEventListener('popstate', function(e) {
-    if (isModified) {
-      handleNavigation();
-    }
-  });
+  
 });
