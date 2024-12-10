@@ -1,9 +1,11 @@
-from requests import get
+from requests import get, Timeout
 from entities.ref import Ref
 
 
 def get_ref_by_doi(doi_id):
-    response = get(f"https://api.crossref.org/works/{doi_id}")
+    response = get(f"https://api.crossref.org/works/{doi_id}", timeout=3)
+    if response is Timeout:
+        return None
     if response.status_code == 404:
         return None
     data = response.json()
@@ -24,6 +26,7 @@ def get_ref_by_doi(doi_id):
             organization=parse_organization(ref_data.get("institution")),
             )
     print(new_ref)
+    return new_ref
 
 
 def parse_authors(data: dict):
@@ -47,7 +50,7 @@ def parse_organization(data):
 
 
 def get_url_for_doi(doi_id):
-    response = get(f"https://doi.org/api/handles/{doi_id}")
+    response = get(f"https://doi.org/api/handles/{doi_id}", timeout=2)
     if response.status_code != 200:
         return None
     data = response.json().get("values")[0]
@@ -60,4 +63,4 @@ def get_url_for_doi(doi_id):
 
 
 def validate_doi(doi_id):
-    pass
+    print(doi_id)
