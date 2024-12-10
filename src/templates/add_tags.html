@@ -9,17 +9,22 @@
             <div id="tagform" class="tagform">
                 {% if ref_tags != [] %}
                     {% for tag in ref_tags %}
-                        <input id="tag_id" type="text" name="tag_name" value="{{ tag.tag_name }}" size="60" minlength="3" required>
+                        <div class="tag-entry d-flex align-items-center mb-2">
+                            <input id="tag_id" type="text" name="tag_name" value="{{ tag.tag_name }}" size="60" minlength="3" required>
+                            <button type="button" class="btn btn-danger ms-2" onclick="remove(this)">Delete</button>
+                        </div>
                     {% endfor %}
                 {% else %}
-                    <input id="tag_id" type="text" name="tag_name" size="60" minlength="3" placeholder="Tag" required>
+                    <div class="tag-entry d-flex align-items-center mb-2">
+                        <input id="tag_id" type="text" name="tag_name" size="60" minlength="3" placeholder="Tag" required>
+                        <button type="button" class="btn btn-danger ms-2" onclick="remove(this)">Delete</button>
+                    </div>
                 {% endif %}
-
             </div>
             <br>
             <div class="tagform">
                 <button type="button" onclick="add()" class="btn btn-primary">Add</button>
-                <button type="button" onclick="remove()" class="btn btn-danger">Delete</button>
+                <!--<button type="button" onclick="remove()" class="btn btn-danger">Delete</button>-->
             </div>
             <br>
             <div>
@@ -36,7 +41,7 @@
 
     </div>
 
-    <div class="col p-2">
+    <div class="col p-2 ms-5">
         <h2>All tags</h2>
         {% for tag in tags|sort(attribute='tag_name')%}
         <li><hidden {{ tag.id }}></hidden>
@@ -45,7 +50,7 @@
         </li>
         {% endfor %}
     </div>
-    </<div>
+<div>
 
-        <script src="{{url_for('static', filename='script.js')}}"></script>
-        {% endblock %}
+<script src="{{url_for('static', filename='script.js')}}"></script>
+{% endblock %}

@@ -1,19 +1,37 @@
 var tagform = document.getElementById("tagform");
 
 function add(){
+  var tagEntry = document.createElement("div");
+  tagEntry.classList.add("tag-entry", "d-flex", "align-items-center", "mb-2");
+
   var newField = document.createElement("input");
-  newField.setAttribute("id","tag_id");
-  newField.setAttribute("type","text");
-  newField.setAttribute("name","tag_name");
-  newField.setAttribute("size",60);
-  newField.setAttribute("minlength",3);
-  newField.setAttribute("placeholder","Tag");
-  newField.setAttribute("required","");
-  tagform.appendChild(newField);
+  newField.classList.add("tag_id");
+  newField.type = "text";
+  newField.name = "tag_name";
+  newField.size = 60;
+  newField.minLength = 3;
+  newField.placeholder = "Tag";
+  newField.required = true;
+  
+  var removeButton = document.createElement("button");
+  removeButton.type = "button";
+  removeButton.classList.add("btn", "btn-danger", "ms-2");
+  removeButton.innerText = "Delete";
+  removeButton.onclick = function() {
+      remove(removeButton);
+  };
+
+  tagEntry.appendChild(newField);
+  tagEntry.appendChild(removeButton);
+
+  document.getElementById("tagform").appendChild(tagEntry);
+
 }
 
 
 function addTag(button){
+  var tagEntry = document.createElement("div");
+  tagEntry.classList.add("tag-entry", "d-flex", "align-items-center", "mb-2");
 
   var existingField = document.querySelector("#tag_id");
   var buttonText = button.textContent || button.innerText;
@@ -21,26 +39,36 @@ function addTag(button){
   if (existingField && existingField.value === "") {
     existingField.value = buttonText;
   } else {
+    
     var newField = document.createElement("input");
-
-    newField.setAttribute("id", "tag_id");
-    newField.setAttribute("type", "text");
-    newField.setAttribute("name", "tag_name");
-    newField.setAttribute("size", 60);
-    newField.setAttribute("minlength", 3);
-    newField.setAttribute("placeholder", "Tag");
-    newField.setAttribute("required", "");
+    newField.classList.add("tag_id");
+    newField.type = "text";
+    newField.name = "tag_name";
+    newField.size = 60;
+    newField.minLength = 3;
+    newField.placeholder = "Tag";
+    newField.required = true;
     newField.value = buttonText;
-    tagform.appendChild(newField);
+
+    var removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.classList.add("btn", "btn-danger", "ms-2");
+    removeButton.innerText = "Delete";
+    removeButton.onclick = function() {
+        remove(removeButton);
+    };
+
+    tagEntry.appendChild(newField);
+    tagEntry.appendChild(removeButton);
+
+    document.getElementById("tagform").appendChild(tagEntry);
+
   }
 }
 
 
-function remove(){
-  var input_tags = tagform.getElementsByTagName("input");
-  if(input_tags.length > 1) {
-    tagform.removeChild(input_tags[(input_tags.length) - 1]);
-  }
+function remove(button) {
+  button.parentElement.remove();
 }
 
 
