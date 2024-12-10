@@ -1,6 +1,9 @@
 var tagform = document.getElementById("tagform");
+let isModified = false;
 
 function add(){
+  isModified = true;
+  
   var tagEntry = document.createElement("div");
   tagEntry.classList.add("tag-entry", "d-flex", "align-items-center", "mb-2");
 
@@ -36,6 +39,8 @@ function addTag(button){
   var existingField = document.querySelector("#tag_id");
   var buttonText = button.textContent || button.innerText;
 
+  isModified = true;
+
   if (existingField && existingField.value === "") {
     existingField.value = buttonText;
   } else {
@@ -68,6 +73,7 @@ function addTag(button){
 
 
 function remove(button) {
+  isModified = true;
   button.parentElement.remove();
 }
 
@@ -93,3 +99,59 @@ function showForm() {
       document.getElementById("bookForm").style.display = "block";
   }
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const cancelButton = document.querySelector('button.btn-secondary');
+  let userConfirmedNavigation = false;
+
+  if (cancelButton) {
+    cancelButton.addEventListener('click', function (e) {
+      handleNavigation(e); // Yhdistetty logiikka funktioon
+    });
+
+    const confirmButton = document.querySelector('button[type="submit"]');
+    if (confirmButton) {
+        confirmButton.addEventListener('click', function () {
+            isModified = false;
+            window.removeEventListener('beforeunload', beforeUnloadHandler);
+        });
+    }
+  
+  }
+
+
+  window.addEventListener('beforeunload', function (e) {
+    if (isModified && !userConfirmedNavigation) {
+      e.preventDefault();
+      e.returnValue = ''; // Required for some browsers
+      return ''; // Required for some browsers
+    }
+    userConfirmedNavigation = false; // Reset if the user stays on the page
+  });
+
+
+  function handleNavigation(e) {
+      if (isModified) {
+          const userConfirmed = confirm('You have unsaved changes. Do you really want to leave this page?');
+          if (!userConfirmed) {
+              if (e) { // Prevent navigation only if the event exists (e.g., button click)
+                  e.preventDefault();
+              }
+          } else {
+              userConfirmedNavigation = true;
+              window.location.href = '/';
+          }
+      } else {
+          window.location.href = '/';
+      }
+  }
+
+
+  // Add listener for popstate event (back/forward buttons)
+  window.addEventListener('popstate', function(e) {
+    if (isModified) {
+      handleNavigation();
+    }
+  });
+});
