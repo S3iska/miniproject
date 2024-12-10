@@ -4,6 +4,18 @@
 {% block body %}
 <div class="container row">
     <div class="col p-2">
+        
+        <form method="GET">
+            <label for="mySearch">Filter with tags</label>
+            <input 
+            type="search" 
+            id="mySearch" 
+            name="tag_filter" 
+            size="30"
+            minlength="3"/>
+            <button>Filter</button>
+        </form>
+
         <h2>References</h2>
         <ul>
             {% for ref in refs %}
