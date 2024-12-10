@@ -22,12 +22,12 @@ def route_add():
     if request.method == "GET":
         doi_string = request.args.get("doi")
         if doi_string is None:
-            return render_template("add.html")
+            return render_template("add.html", fill=None)
         else:
             doi_ref = get_ref_by_doi(doi_string)
             if doi_ref is None:
-                return render_template("add.html", error_msg=f"Could not with anything with doi:{doi_string}")
-            return render_template("add.html", error_msg=f"Found something with title: {doi_ref.title}")
+                return render_template("add.html", fill=None, error_msg=f"Could not with publication with doi:{doi_string}")
+            return render_template("add.html", fill=doi_ref)
 
     fields = [
             "ref_type", "ref_name", "author", "title", "year", "publisher",

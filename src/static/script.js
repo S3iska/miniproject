@@ -104,6 +104,19 @@ function showForm() {
 }
 
 
+function selectForm(type) {
+    selector = document.getElementById("typeSelect")
+    if (type === "article") {
+        selector.value = "article";
+    } else if (type === "inproceedings") {
+        selector.value = "inproceedings";
+    } else if (type === "book") {
+        selector.value = "book";
+    }
+    showForm()
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   const cancelButton = document.querySelector('button.btn-secondary');
   let userConfirmedNavigation = false;

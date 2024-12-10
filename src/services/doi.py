@@ -1,5 +1,6 @@
 from requests import get, Timeout
 from entities.ref import Ref
+import string
 
 
 def get_ref_by_doi(doi_id):
@@ -24,8 +25,10 @@ def get_ref_by_doi(doi_id):
             url=ref_data.get("resource").get("primary").get("URL"),
             year=ref_data.get("published").get("date-parts")[0][0],
             month=ref_data.get("published").get("date-parts")[0][1],
-            editor=parse_editor(ref_data.get("editor")),
+            editor=parse_editors(ref_data.get("editor")),
             organization=parse_organization(ref_data.get("institution")),
+            booktitle=next(iter(ref_data.get("container-title")), None),
+            journal=next(iter(ref_data.get("container-title")), None)
             )
     print(new_ref)
     return new_ref
@@ -36,20 +39,27 @@ def parse_type(ref_type: str):
         return "article"
     elif ref_type == "book":
         return "book"
+    elif ref_type == "proceedings-article":
+        return "inproceedings"
     return "article"
 
 
 def parse_authors(data: dict):
+    if data is None:
+        return
     authors = []
     for author in data:
         authors.append(author.get("given") + " " + author.get("family"))
     return ", ".join(authors)
 
 
-def parse_editor(data: list):
+def parse_editors(data: list):
     if data is None:
         return None
-    return data[0].get("given") + " " + data[0].get("family")
+    editors = []
+    for editor in data:
+        editors.append(editor.get("given") + " " + data[0].get("family"))
+    return ", ".join(editors)
 
 
 def parse_organization(data):
@@ -75,6 +85,7 @@ def get_url_for_doi(doi_id):
 
 
 def validate_doi(doi_id):
+    suffix_chars = string.ascii_letters + "1234567890" + "-._;()/"
     try:
         prefix, suffix = doi_id.split("/", 1)
         if not prefix.startswith("10."):
@@ -82,8 +93,8 @@ def validate_doi(doi_id):
         for part in prefix.split(".")[1:]:
             if not part.isnumeric():
                 return False
-        for part in suffix.split("."):
-            if not part.isalnum():
+        for c in suffix:
+            if c not in suffix_chars:
                 return False
         return True
     except Exception:
