@@ -13,7 +13,13 @@ class TestRefRepo(unittest.TestCase):
         with app.app_context():
             setup_db()
             self.mock_db = Mock()
-            query = text("SELECT * FROM refs")
+            query = text("""
+                SELECT *, array_agg(t.tag_name) as tags
+                FROM refs r
+                LEFT JOIN ref_tags rt ON r.id = rt.ref_id
+                LEFT JOIN tags t ON rt.tag_id = t.tag_id
+                GROUP BY r.id, rt.ref_id, rt.tag_id, t.tag_id
+            """)
             mock_result = db.session.execute(query)
             self.mock_db.session.execute.return_value = mock_result
 

@@ -2,8 +2,7 @@ from flask import redirect, render_template, request, jsonify
 from db_helper import reset_db
 from config import app, test_env, db
 from repositories.ref_repository import create_ref, get_refs
-from repositories.ref_repository import delete_all_refs, delete_ref, \
-     get_refs_tags
+from repositories.ref_repository import delete_all_refs, delete_ref
 from repositories.tag_repository import get_tags, link_many_tags_to_ref
 from entities.ref import Ref
 
@@ -12,9 +11,7 @@ from entities.ref import Ref
 def index():
     refs = get_refs(db)
     bibtex = "\n\n".join(list(map(lambda ref: ref.get_bibtex(), refs)))
-    refs_tags = get_refs_tags(db)
-    return render_template("index.html", refs=refs, bibtex=bibtex,
-                                    refs_tags=refs_tags)
+    return render_template("index.html", refs=refs, bibtex=bibtex)
 
 
 @app.route("/add", methods=["GET", "POST"])

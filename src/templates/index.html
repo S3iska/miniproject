@@ -6,7 +6,7 @@
     <div class="col p-2">
         <h2>References</h2>
         <ul>
-            {% for ref in refs_tags|sort(attribute='author')%}
+            {% for ref in refs %}
             <li><hidden {{ ref.id }}></hidden>
                 <strong>Type:</strong> {{ ref.ref_type }}<br>
                 <strong>Reference name:</strong> {{ ref.ref_name }}<br>
@@ -36,14 +36,10 @@
                     {% if value %}<strong>{{ label }}:</strong> {{ value }}<br>{% endif %}
                 {% endfor %}
 
-
-                {% if ref.tags|selectattr('tag_name')|list %}
-                    <strong>Tags: </strong> 
-                    {% for tag in ref.tags %}
-                            {{ tag.tag_name }} 
-                    {% endfor %}<br>
-                {% endif %}
-
+                <strong>Tags: </strong> 
+                {% for tag in ref.tags %}
+                    {{ tag }}
+                {% endfor %}<br>
 
                 <a href="{{ ref.id }}/add_tags" class="btn btn-primary m-1">Add a tag</a>
             
