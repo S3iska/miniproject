@@ -10,7 +10,7 @@ def ref_from_row(row):
     ref.tags = row.tags
     return ref
 
-def get_refs(db, **kwargs):
+def get_refs(db, tag_filter=None, **kwargs):
     valid_fields = [field.name for field in fields(Ref)]
     query_fields = ", ".join([f"r.{field}" for field in valid_fields])
 
@@ -33,6 +33,11 @@ def get_refs(db, **kwargs):
         query += " WHERE " + " AND ".join(conditions)
 
     query += " GROUP BY r.id"
+    if tag_filter:
+        query += """
+            HAVING :tag_filter = ANY(array_remove(array_agg(t.tag_name), NULL))
+        """
+        params['tag_filter'] = tag_filter
 
     result = db.session.execute(text(query), params)
     rows = result.fetchall()
