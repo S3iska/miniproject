@@ -15,10 +15,12 @@ def get_refs(db, **kwargs):
     query_fields = ", ".join([f"r.{field}" for field in valid_fields])
 
     query = f"""
-        SELECT {query_fields}, array_agg(t.tag_name) as tags
+        SELECT 
+            {query_fields},
+            array_remove(array_agg(t.tag_name), NULL) as tags
         FROM refs r
-        LEFT JOIN ref_tags rt ON r.id = rt.ref_id
-        LEFT JOIN tags t ON rt.tag_id = t.tag_id
+            LEFT JOIN ref_tags rt ON r.id = rt.ref_id
+            LEFT JOIN tags t      ON rt.tag_id = t.tag_id
     """
 
     conditions = []

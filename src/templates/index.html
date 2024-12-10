@@ -36,10 +36,12 @@
                     {% if value %}<strong>{{ label }}:</strong> {{ value }}<br>{% endif %}
                 {% endfor %}
 
-                <strong>Tags: </strong> 
-                {% for tag in ref.tags %}
-                    {{ tag }}
-                {% endfor %}<br>
+                {% if ref.tags != [] %}
+                    <strong>Tags: </strong> 
+                    {% for tag in ref.tags %}
+                        {{ tag }}
+                    {% endfor %}<br>
+                {% endif %}
 
                 <a href="{{ ref.id }}/add_tags" class="btn btn-primary m-1">Add a tag</a>
             
