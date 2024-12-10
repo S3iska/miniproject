@@ -7,9 +7,13 @@
         <form action="/{{ ref_id }}/add_tags" method="POST">
             <h2>Add tags to reference</h2>
             <div id="tagform" class="tagform">
-                {% for tag in ref_tags %}
-                    <input id="tag_id" type="text" name="tag_name" value="{{ tag.tag_name }}" size="60" minlength="3" placeholder="Tag" required>
-                {% endfor %}
+                {% if ref_tags != [] %}
+                    {% for tag in ref_tags %}
+                        <input id="tag_id" type="text" name="tag_name" value="{{ tag.tag_name }}" size="60" minlength="3" required>
+                    {% endfor %}
+                {% else %}
+                    <input id="tag_id" type="text" name="tag_name" size="60" minlength="3" placeholder="Tag" required>
+                {% endif %}
 
             </div>
             <br>
