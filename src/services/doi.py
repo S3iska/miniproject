@@ -15,7 +15,7 @@ def get_ref_by_doi(doi_id):
     # print(ref_data)
     new_ref = Ref(
             doi=doi_id,
-            ref_type=ref_data.get("type"),
+            ref_type=parse_type(ref_data.get("type")),
             author=parse_authors(ref_data.get("author")),
             title=ref_data.get("title")[0],
             publisher=ref_data.get("publisher"),
@@ -29,6 +29,14 @@ def get_ref_by_doi(doi_id):
             )
     print(new_ref)
     return new_ref
+
+
+def parse_type(ref_type: str):
+    if ref_type == "journal-article":
+        return "article"
+    elif ref_type == "book":
+        return "book"
+    return "article"
 
 
 def parse_authors(data: dict):
