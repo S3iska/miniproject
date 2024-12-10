@@ -3,6 +3,8 @@ from entities.ref import Ref
 
 
 def get_ref_by_doi(doi_id):
+    if not validate_doi(doi_id):
+        return None
     response = get(f"https://api.crossref.org/works/{doi_id}", timeout=3)
     if response is Timeout:
         return None
@@ -50,6 +52,8 @@ def parse_organization(data):
 
 
 def get_url_for_doi(doi_id):
+    if not validate_doi(doi_id):
+        return None
     response = get(f"https://doi.org/api/handles/{doi_id}", timeout=2)
     if response.status_code != 200:
         return None
@@ -63,4 +67,16 @@ def get_url_for_doi(doi_id):
 
 
 def validate_doi(doi_id):
-    print(doi_id)
+    try:
+        prefix, suffix = doi_id.split("/", 1)
+        if not prefix.startswith("10."):
+            return False
+        for part in prefix.split(".")[1:]:
+            if not part.isnumeric():
+                return False
+        for part in suffix.split("."):
+            if not part.isalnum():
+                return False
+        return True
+    except Exception:
+        return False
