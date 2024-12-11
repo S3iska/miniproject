@@ -1,6 +1,6 @@
+from string import ascii_letters
 from requests import get, Timeout
 from entities.ref import Ref
-import string
 
 
 def get_ref_by_doi(doi_id):
@@ -37,16 +37,16 @@ def get_ref_by_doi(doi_id):
 def parse_type(ref_type: str):
     if ref_type == "journal-article":
         return "article"
-    elif ref_type == "book":
+    if ref_type == "book":
         return "book"
-    elif ref_type == "proceedings-article":
+    if ref_type == "proceedings-article":
         return "inproceedings"
     return "article"
 
 
 def parse_authors(data: dict):
     if data is None:
-        return
+        return None
     authors = []
     for author in data:
         authors.append(author.get("given") + " " + author.get("family"))
@@ -85,7 +85,7 @@ def get_url_for_doi(doi_id):
 
 
 def validate_doi(doi_id):
-    suffix_chars = string.ascii_letters + "1234567890" + "-._;()/"
+    suffix_chars = ascii_letters + "1234567890" + "-._;()/"
     try:
         prefix, suffix = doi_id.split("/", 1)
         if not prefix.startswith("10."):
