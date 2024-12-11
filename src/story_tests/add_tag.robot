@@ -41,12 +41,12 @@ Tag Added Only Once To Ref
     Click Button  Confirm
     Page Should Not Contain  Intel AMD AMD
 
-Cancel Button Does Not Trigger a Warning on an Unchanged Page
+Cancel Button Does Not Trigger a Warning on an Unchanged Add Tag Page
     Go To Add Tag Page
     Click Button  Cancel
     Verify That This Is the Home Page
 
-Cancel Button Triggers a Warning on a Changed Page
+Cancel Button Triggers a Warning on a Changed Add Tag Page
     Go To Add Tag Page
     Click Button  Add
     Click Button  Cancel

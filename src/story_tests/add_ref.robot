@@ -195,6 +195,20 @@ Error message is shown with invalid year
     Click Button  xpath=//div[@id='articleForm']//form//button
     Page Should Contain  ERROR: Year must be between
 
+
+Cancel Button Does Not Trigger a Warning on an Unchanged Add Ref Page
+    Go To Add Ref Page
+    Click Button  Cancel
+    Verify That This Is the Home Page
+
+
+Cancel Button Triggers a Warning on a Changed Add Ref Page
+    Go To Add Ref Page
+    Set Ref Type  article
+    Click Button  Cancel
+    Alert Should Be Present
+
+
 *** Keywords ***
 Set Ref type
     [Arguments]  ${type}
