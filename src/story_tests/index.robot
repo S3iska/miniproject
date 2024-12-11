@@ -43,6 +43,15 @@ Tag Filtering Filters References Correctly
     Click Button  Filter
     Page Should Not Contain    Intel
 
+Tag Filter Delete Works Correctly
+    Go To Home Page
+    Input Text    tag_filter   NVIDIA
+    Click Button  Filter
+    Page Should Not Contain    Intel
+
+    Click Button  Delete filter
+    Page Should Contain        Intel
+
 *** Keywords ***
 Set Ref type
     [Arguments]  ${type}
