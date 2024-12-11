@@ -14,7 +14,8 @@ def index():
     tag_filter = request.args.get('tag_filter')
     refs = get_refs(db, tag_filter=tag_filter)
     bibtex = "\n\n".join(list(map(lambda ref: ref.get_bibtex(), refs)))
-    return render_template("index.html", refs=refs, bibtex=bibtex)
+    return render_template("index.html", refs=refs, bibtex=bibtex, 
+                           tag_filter=tag_filter)
 
 
 @app.route("/add", methods=["GET", "POST"])
