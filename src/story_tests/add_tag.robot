@@ -9,6 +9,7 @@ Test Setup       Setup Test Db
 *** Variables ***
 ${TAG_NAME}       tagtest549
 
+
 *** Test Cases ***
 Add a Tag
     Go To Add Tag Page
@@ -21,3 +22,11 @@ One Or Multiple Tags
     Go To Home Page
     Page Should Contain  AMD
     Page Should Contain  Intel
+
+Delete Tags From Ref
+    Go To Add Tag Page
+    Click Button  Delete
+    Click Button  Delete
+    Click Button  Confirm
+    Page Should Not Contain  Intel AMD
+

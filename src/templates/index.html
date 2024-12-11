@@ -15,13 +15,13 @@
             <button class="btn btn-primary">Filter</button>
         </form>
         {% endif %}
-        
+
         <ul>
             {% for ref in refs %}
             <li><hidden {{ ref.id }}></hidden>
                 <strong>Type:</strong> {{ ref.ref_type }}<br>
                 <strong>Reference name:</strong> {{ ref.ref_name }}<br>
-            
+
                 {% set ref_fields = [
                     ("Title", ref.title),
                     ("Author", ref.author),
@@ -42,20 +42,18 @@
                     ("Editor", ref.editor),
                     ("Organization", ref.organization)
                 ] %}
-            
+
                 {% for label, value in ref_fields %}
                     {% if value %}<strong>{{ label }}:</strong> {{ value }}<br>{% endif %}
                 {% endfor %}
 
                 {% if ref.tags != [] %}
-                    <strong>Tags: </strong> 
-                    {% for tag in ref.tags %}
-                        {{ tag }}
-                    {% endfor %}<br>
+                    <strong>Tags: </strong>
+                    {% for tag in ref.tags %}{{ tag }} {% endfor %}<br>
                 {% endif %}
 
                 <a href="{{ ref.id }}/add_tags" class="btn btn-primary m-1">Add a tag</a>
-            
+
                 <form action="/{{ ref.id }}/delete_ref" method="post">
                     <input id="delete{{ref.ref_name}}" type="submit" class="btn btn-sm btn-warning" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
                 </form>
@@ -69,7 +67,7 @@
             <input class="btn btn-danger" type="submit" onclick="return confirm('NOTE! Are you sure you want to delete all references from the database?')" value="Delete all">
         </form>
 
-        
+
     </div>
 
     <div class="col p-2">
@@ -80,7 +78,7 @@
                 navigator.clipboard.writeText(document.getElementById("bibtex").value);
             }
         </script>
-        <button onclick="copy_bibtex()" class="btn btn-primary">Copy</button>    
+        <button onclick="copy_bibtex()" class="btn btn-primary">Copy</button>
     </div>
 </div>
 {% endblock %}
