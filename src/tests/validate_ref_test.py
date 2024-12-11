@@ -135,10 +135,10 @@ class TestRefValidation(unittest.TestCase):
         with self.assertRaises(UserInputError):
             ref.validate()
         
-        ref.year = 1600
+        ref.year = 1599
         with self.assertRaises(UserInputError):
             ref.validate()
 
-        ref.year = 2100
+        ref.year = 2101
         with self.assertRaises(UserInputError):
             ref.validate()
