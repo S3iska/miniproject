@@ -20,13 +20,22 @@ Add a Tag
 
 One Or Multiple Tags
     Go To Home Page
-    Page Should Contain  AMD
     Page Should Contain  Intel
+    Page Should Contain  AMD NVIDIA
 
 Delete Tags From Ref
+    Go To Home Page
+    Page Should Contain  Intel AMD
     Go To Add Tag Page
     Click Button  Delete
     Click Button  Delete
     Click Button  Confirm
     Page Should Not Contain  Intel AMD
 
+Tag Added Only Once To Ref
+    Go To Home Page
+    Page Should Contain  Intel AMD
+    Go To Add Tag Page
+    Click Button  xpath=//button[text()="AMD"]
+    Click Button  Confirm
+    Page Should Not Contain  Intel AMD AMD
