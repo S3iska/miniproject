@@ -58,7 +58,7 @@ def parse_editors(data: list):
         return None
     editors = []
     for editor in data:
-        editors.append(editor.get("given") + " " + data[0].get("family"))
+        editors.append(editor.get("given") + " " + editor.get("family"))
     return ", ".join(editors)
 
 
@@ -67,21 +67,6 @@ def parse_organization(data):
         return None
     org = data[0]
     return org.get("name")
-
-
-def get_url_for_doi(doi_id):
-    if not validate_doi(doi_id):
-        return None
-    response = get(f"https://doi.org/api/handles/{doi_id}", timeout=2)
-    if response.status_code != 200:
-        return None
-    data = response.json().get("values")[0]
-    if data.get("type") != "URL":
-        return None
-    data = data.get("data")
-    if data.get("format") == "string":
-        return data.get("value")
-    return None
 
 
 def validate_doi(doi_id):
