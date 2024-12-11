@@ -4,19 +4,17 @@
 {% block body %}
 <div class="container row">
     <div class="col p-2">
-        
-        <form method="GET">
-            <label for="mySearch">Filter with tags</label>
-            <input 
-            type="search" 
-            id="mySearch" 
-            name="tag_filter" 
-            size="30"
-            minlength="3"/>
-            <button class="btn btn-primary">Filter</button><form action="/" method="GET"><button type="submit" class="btn btn-secondary m-1">Delete filter</button></form>
-        </form>
-        
         <h2>References</h2>
+
+        {% if tag_filter %}
+            <strong>Current filter: {{ tag_filter }} </strong><form action="/" method="GET"><button type="submit" class="btn btn-secondary btn-sm m-1">Delete filter</button></form>
+        {% else %}
+        <form method="GET">
+            <input type="search" id="mySearch" name="tag_filter" size="30" minlength="3" maxlength="15" placeholder="Filter with tags"/>
+            <button class="btn btn-primary">Filter</button>
+        </form>
+        {% endif %}
+        
         <ul>
             {% for ref in refs %}
             <li><hidden {{ ref.id }}></hidden>
