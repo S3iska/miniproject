@@ -6,6 +6,7 @@ Suite Setup      Open And Configure Browser
 Suite Teardown   Close Browser
 Test Setup       Setup Test Db
 
+
 *** Variables ***
 ${TAG_NAME}       tagtest549
 
@@ -39,3 +40,14 @@ Tag Added Only Once To Ref
     Click Button  xpath=//button[text()="AMD"]
     Click Button  Confirm
     Page Should Not Contain  Intel AMD AMD
+
+Cancel Button Does Not Trigger a Warning on an Unchanged Page
+    Go To Add Tag Page
+    Click Button  Cancel
+    Verify That This Is the Home Page
+
+Cancel Button Triggers a Warning on a Changed Page
+    Go To Add Tag Page
+    Click Button  Add
+    Click Button  Cancel
+    Alert Should Be Present

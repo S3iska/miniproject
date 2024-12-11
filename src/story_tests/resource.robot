@@ -41,3 +41,6 @@ Go To Add Tag Page
     Go To Home Page
     Click Element   xpath=//a[@href="${ADD_TAG_HREF}"]
     Location Should Be  ${ADD_TAG_URL}
+
+Verify That This Is the Home Page
+    Location Should Be  ${HOME_URL}/
