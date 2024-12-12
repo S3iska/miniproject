@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Miniproject{% endblock %}
+{% block title %}BibTeX Manager{% endblock %}
 
 {% block body %}
 <div class="container row">
@@ -52,9 +52,8 @@
                     {% for tag in ref.tags %}{{ tag }} {% endfor %}<br>
                 {% endif %}
 
-                <a href="{{ ref.id }}/add_tags" class="btn btn-primary m-1">Add a tag</a>
-
                 <form action="/{{ ref.id }}/delete_ref" method="post">
+                    <a href="{{ ref.id }}/add_tags" class="btn btn-primary btn-sm m-1">Add a tag</a>
                     <input id="delete{{ref.ref_name}}" type="submit" class="btn btn-sm btn-warning" onclick="return confirm('Are you sure you want to delete the reference from the database?')" value="Delete">
                 </form>
                 <br>

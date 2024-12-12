@@ -21,19 +21,13 @@
                     </div>
                 {% endif %}
             </div>
-            <br>
-            <div class="tagform">
-                <button type="button" onclick="add()" class="btn btn-primary">Add</button>
-                <!--<button type="button" onclick="remove()" class="btn btn-danger">Delete</button>-->
-            </div>
-            <br>
+            <button type="button" onclick="add()" class="btn btn-primary">Add new tag</button>
+            <br><br>
             <div>
-                <button type="submit" class="btn btn-primary">Confirm</button>
-            </div>
-            <br>
-            <div>
+                <button type="submit" class="btn btn-success">Confirm</button>
                 <button type="button" class="btn btn-secondary">Cancel</button>
             </div>
+            <br>
         </form>
         {% if error_msg %}
         <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
@@ -45,8 +39,7 @@
         <h2>All tags</h2>
         {% for tag in tags|sort(attribute='tag_name')%}
         <li><hidden {{ tag.id }}></hidden>
-            <button type="button" onclick="addTag(this)" class="btn btn-primary tag_button">{{ tag.tag_name }}</button><br>
-            <br>
+            <button type="button" onclick="addTag(this)" class="btn btn-primary tag_button btn-small m-1">{{ tag.tag_name }}</button>
         </li>
         {% endfor %}
     </div>

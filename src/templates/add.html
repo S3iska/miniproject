@@ -7,16 +7,14 @@
     {% if fill %}
     {% else %}
     <form class="form-inline" action="/add" method="GET">
-        <div class="input-group">
-            Find reference by doi:
+        <div class="input-group" class="mb-3">
+            Find reference by doi:&nbsp;&nbsp;&nbsp;
             <input class="form-control" type="text" name="doi" />
-            <div>
-                <button type="submit" class="btn btn-primary">Find</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Find</button>
         </div>
     </form>
     {% endif %}
-    <select id="typeSelect" name="ref_type" onchange="showForm()">
+    <select id="typeSelect" name="ref_type" onchange="showForm()" class="m-2">
         <option value="">--Choose an reference type</option>
         <option value="article">Article</option>
         <option value="inproceedings">Inproceedings</option>

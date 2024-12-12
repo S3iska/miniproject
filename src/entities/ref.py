@@ -57,7 +57,7 @@ class Ref:
 
         if self.ref_type == "article":
             validate_string(self.journal, "Journal", False, 3, 250)
-        else:
+        elif self.ref_type == "book":
             validate_string(self.publisher, "Publisher", False, 3, 250)
 
         validate_int(self.year, "Year", False, 1600, 2100)
