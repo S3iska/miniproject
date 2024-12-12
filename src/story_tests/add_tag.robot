@@ -48,6 +48,6 @@ Cancel Button Does Not Trigger a Warning on an Unchanged Add Tag Page
 
 Cancel Button Triggers a Warning on a Changed Add Tag Page
     Go To Add Tag Page
-    Click Button  Add
+    Click Button  Add new tag
     Click Button  Cancel
     Alert Should Be Present

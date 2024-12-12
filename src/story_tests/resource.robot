@@ -30,7 +30,7 @@ Open And Configure Browser
 
 Go To Home Page
     Go To  ${HOME_URL}
-    Title Should Be  Miniproject
+    Title Should Be  BibTeX Manager
 
 Go To Add Ref Page
     Go To Home Page
