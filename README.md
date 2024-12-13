@@ -5,6 +5,8 @@
 
 [Product backlog](https://docs.google.com/spreadsheets/d/1apMJDKGZPF-bFKYbJuen6lBlI-GctVNdVvS5p9Ai9UU/edit?usp=sharing)
 
+[Loppuraportti](loppuraportti.md)
+
 ## Ohjelman käyttöönotto
 
 ### Asennus
