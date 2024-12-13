@@ -4,12 +4,22 @@
 <div class="m-3 w-25">
     <h2>Add a reference</h2>
     <br>
-        <select id="typeSelect" name="ref_type" onchange="showForm()">
-            <option value="">--Choose an reference type</option>
-            <option value="article">Article</option>
-            <option value="inproceedings">Inproceedings</option>
-            <option value="book">Book</option>
-        </select>
+    {% if fill %}
+    {% else %}
+    <form class="form-inline" action="/add" method="GET">
+        <div class="input-group" class="mb-3">
+            Find reference by doi:&nbsp;&nbsp;&nbsp;
+            <input class="form-control" type="text" name="doi" />
+            <button type="submit" class="btn btn-primary">Find</button>
+        </div>
+    </form>
+    {% endif %}
+    <select id="typeSelect" name="ref_type" onchange="showForm()" class="m-2">
+        <option value="">--Choose an reference type</option>
+        <option value="article">Article</option>
+        <option value="inproceedings">Inproceedings</option>
+        <option value="book">Book</option>
+    </select>
     <div id="articleForm" class="form-section">
         <form class="form-inline" action="/add" method="POST">
             <input type="hidden" name="ref_type" value="article"/>
@@ -22,32 +32,32 @@
             <br>
             Author: 
             <div class="input-group">
-                <input class="form-control" type="text" name="author" required/>
+                <input class="form-control" type="text" name="author" value="{{fill.author if fill.author is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Title:
             <div class="input-group">
-                <input class="form-control" type="text" name="title" required/>
+                <input class="form-control" type="text" name="title" value="{{fill.title if fill.title is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Year:
             <div class="input-group">
-                <input class="form-control" type="text" name="year" required/>
+                <input class="form-control" type="text" name="year" value="{{fill.year if fill.year is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Journal:
             <div class="input-group">
-                <input class="form-control" type="text" name="journal" required/>
+                <input class="form-control" type="text" name="journal" value="{{fill.journal if fill.journal is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
-            Volume: <input class="form-control" type="text" name="volume"/></br>
-            Pages: <input class="form-control" type="text" name="pages"/></br>
-            Month: <input class="form-control" type="text" name="month"/></br>
-            DOI: <input class="form-control" type="text" name="doi"/></br>
+            Volume: <input class="form-control" type="text" name="volume" value="{{fill.volume if fill.volume is not none else ''}}" /></br>
+            Pages: <input class="form-control" type="text" name="pages" value="{{fill.pages if fill.pages is not none else ''}}" /></br>
+            Month: <input class="form-control" type="text" name="month" value="{{fill.month if fill.month is not none else ''}}" /></br>
+            DOI: <input class="form-control" type="text" name="doi" value="{{fill.doi if fill.doi is not none else ''}}" /></br>
             Note: <input class="form-control" type="text" name="note"/></br>
             Key: <input class="form-control" type="text" name="key"/></br>
             <div>
@@ -67,38 +77,38 @@
             <br>
             Author: 
             <div class="input-group">
-                <input class="form-control" type="text" name="author" required/>
+                <input class="form-control" type="text" name="author"  value="{{fill.author if fill.author is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Title:
             <div class="input-group">
-                <input class="form-control" type="text" name="title" required/>
+                <input class="form-control" type="text" name="title"  value="{{fill.title if fill.title is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Year:
             <div class="input-group">
-                <input class="form-control" type="text" name="year" required/>
+                <input class="form-control" type="text" name="year"  value="{{fill.year if fill.year is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Booktitle: 
             <div class="input-group">
-                <input class="form-control" type="text" name="booktitle" required/>
+                <input class="form-control" type="text" name="booktitle"  value="{{fill.booktitle if fill.booktitle is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
-            Publisher: <input class="form-control" type="text" name="publisher"/></br>
-            Volume: <input class="form-control" type="text" name="volume"/></br>
-            Pages: <input class="form-control" type="text" name="pages"/></br>
-            Month: <input class="form-control" type="text" name="month"/></br>
+            Publisher: <input class="form-control" type="text" name="publisher" value="{{fill.publisher if fill.publisher is not none else ''}}" /></br>
+            Volume: <input class="form-control" type="text" name="volume" value="{{fill.volume if fill.volume is not none else ''}}" /></br>
+            Pages: <input class="form-control" type="text" name="pages" value="{{fill.pages if fill.pages is not none else ''}}" /></br>
+            Month: <input class="form-control" type="text" name="month" value="{{fill.month if fill.month is not none else ''}}" /></br>
             Note: <input class="form-control" type="text" name="note"/></br>
             Key: <input class="form-control" type="text" name="key"/></br>
             Series: <input class="form-control" type="text" name="series"/></br>
             Address: <input class="form-control" type="text" name="address"/></br>
-            Editor: <input class="form-control" type="text" name="editor"/></br>
-            Organization: <input class="form-control" type="text" name="organization"/></br>
+            Editor: <input class="form-control" type="text" name="editor" value="{{fill.editor if fill.editor is not none else ''}}" /></br>
+            Organization: <input class="form-control" type="text" name="organization" value="{{fill.organization if fill.organization is not none else ''}}" /></br>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
@@ -114,38 +124,42 @@
             <br>
             Author: 
             <div class="input-group">
-                <input class="form-control" type="text" name="author" required/>
+                <input class="form-control" type="text" name="author" value="{{fill.author if fill.author is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Title:
             <div class="input-group">
-                <input class="form-control" type="text" name="title" required/>
+                <input class="form-control" type="text" name="title"  value="{{fill.title if fill.title is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Year:
             <div class="input-group">
-                <input class="form-control" type="text" name="year" required/>
+                <input class="form-control" type="text" name="year"  value="{{fill.year if fill.year is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
             Publisher:
             <div class="input-group">
-                <input class="form-control" type="text" name="publisher" required/>
+                <input class="form-control" type="text" name="publisher"  value="{{fill.publisher if fill.publisher is not none else ''}}" required/>
                 <span style="color:red;" class="input-group-text">*</span><br>
             </div>
             <br>
-            Volume: <input class="form-control" type="text" name="volume"/></br>
-            Month: <input class="form-control" type="text" name="month"/></br>
+            Volume: <input class="form-control" type="text" name="volume"/ value="{{fill.volume if fill.volume is not none else ''}}" ></br>
+            Month: <input class="form-control" type="text" name="month"/ value="{{fill.month if fill.month is not none else ''}}" ></br>
             Note: <input class="form-control" type="text" name="note"/></br>
             Key: <input class="form-control" type="text" name="key"/></br>
             Series: <input class="form-control" type="text" name="series"/></br>
             Address: <input class="form-control" type="text" name="address"/></br>
             Edition: <input class="form-control" type="text" name="edition"/></br>
-            URL: <input class="form-control" type="text" name="url"/></br>
+            URL: <input class="form-control" type="text" name="url"/ value="{{fill.url if fill.url is not none else ''}}" ></br>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
+    </div>
+    <br>
+    <div>
+        <button type="button" class="btn btn-secondary m-1">Cancel</button>
     </div>
     {% if error_msg %}
     <p style="color:red;" id="error_box">ERROR: {{ error_msg }}</p>
@@ -153,4 +167,7 @@
 
 </div>
 <script src="{{url_for('static', filename='script.js')}}"></script>
+{% if fill %}
+<script>selectForm("{{fill.ref_type}}");</script>
+{% endif %}
 {% endblock %}

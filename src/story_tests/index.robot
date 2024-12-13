@@ -37,6 +37,21 @@ Reference Is Visible On Home Page
     Page Should Contain    ${TITLE}
     Page Should Contain    ${YEAR}
 
+Tag Filtering Filters References Correctly
+    Go To Home Page
+    Input Text    tag_filter   NVIDIA
+    Click Button  Filter
+    Page Should Not Contain    Intel
+
+Tag Filter Delete Works Correctly
+    Go To Home Page
+    Input Text    tag_filter   NVIDIA
+    Click Button  Filter
+    Page Should Not Contain    Intel
+
+    Click Button  Delete filter
+    Page Should Contain        Intel
+
 *** Keywords ***
 Set Ref type
     [Arguments]  ${type}

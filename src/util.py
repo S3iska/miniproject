@@ -12,3 +12,12 @@ def validate_string(value, name, optional, min_length, max_length):
             f"{name} must be between {min_length} and {max_length}"
             " characters long."
         )
+
+def validate_int(value, name, optional, min_value, max_value):
+    if value is None and not optional:
+        raise UserInputError(f"{name} is requried.")
+
+    if not min_value <= value <= max_value:
+        raise UserInputError(
+            f"{name} must be between {min_value} and {max_value}"
+        )

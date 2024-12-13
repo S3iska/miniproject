@@ -113,20 +113,6 @@ class TestRefValidation(unittest.TestCase):
         with self.assertRaises(UserInputError):
             ref.validate()
     
-    def test_missing_or_too_short_or_long_publisher_raises_error(self):
-        ref = copy(self.valid_inproceedings)
-
-        ref.publisher = None
-        with self.assertRaises(UserInputError):
-            ref.validate()
-        
-        ref.publisher = "a"*2
-        with self.assertRaises(UserInputError):
-            ref.validate()
-
-        ref.publisher = "a"*251
-        with self.assertRaises(UserInputError):
-            ref.validate()
 
     def test_missing_or_invalid_year_raises_error(self):
         ref = copy(self.valid_article)
@@ -135,10 +121,10 @@ class TestRefValidation(unittest.TestCase):
         with self.assertRaises(UserInputError):
             ref.validate()
         
-        ref.year = 1600
+        ref.year = 1599
         with self.assertRaises(UserInputError):
             ref.validate()
 
-        ref.year = 2100
+        ref.year = 2101
         with self.assertRaises(UserInputError):
             ref.validate()

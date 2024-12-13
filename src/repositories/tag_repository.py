@@ -15,7 +15,6 @@ def create_tag(db, tag: Tag):
         db.session.rollback()
         raise e
 
-
 def get_tags(db):
     query = text("""
                  SELECT tag_id, tag_name
@@ -29,6 +28,18 @@ def get_tags(db):
         tags.append(new_tag)
     return tags
 
+def get_tags_by_ref(db, ref_id):
+    query = text("""
+                 SELECT t.tag_id, tag_name
+                 FROM ref_tags rt
+                 LEFT JOIN tags t ON rt.tag_id=t.tag_id WHERE rt.ref_id = :ref_id
+                 """)
+    result = db.session.execute(query, {"ref_id": ref_id}).fetchall()
+    tags = []
+    for row in result:
+        ref_tags = Tag(tag_id=row.tag_id, tag_name=row.tag_name)
+        tags.append(ref_tags)
+    return tags
 
 def link_tag_to_ref(db, ref_id, tag_name):
     checkquery = text("SELECT tag_id, tag_name FROM tags \
@@ -51,7 +62,14 @@ def link_tag_to_ref(db, ref_id, tag_name):
         db.session.rollback()
         raise e
 
-
 def link_many_tags_to_ref(db, ref_id, tag_names):
-    for tag_name in tag_names:
-        link_tag_to_ref(db, ref_id, tag_name)
+    try:
+        sql = text("DELETE FROM ref_tags \
+                    WHERE ref_id = :ref_id")
+        db.session.execute(sql, {"ref_id": ref_id})
+        db.session.commit()
+        for tag_name in set(tag_names):
+            link_tag_to_ref(db, ref_id, tag_name)
+    except Exception as e:
+        db.session.rollback()
+        raise e

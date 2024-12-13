@@ -1,5 +1,5 @@
 from dataclasses import dataclass, fields
-from util import UserInputError, validate_string
+from util import UserInputError, validate_string, validate_int
 
 @dataclass
 class Ref:
@@ -57,11 +57,10 @@ class Ref:
 
         if self.ref_type == "article":
             validate_string(self.journal, "Journal", False, 3, 250)
-        else:
+        elif self.ref_type == "book":
             validate_string(self.publisher, "Publisher", False, 3, 250)
 
-        if not (self.year and 1600 < self.year < 2100):
-            raise UserInputError("Year must be between 1600 and 2100")
+        validate_int(self.year, "Year", False, 1600, 2100)
 
         validate_string(self.volume, "Volume", True, 1, 250)
         validate_string(self.pages, "Pages", True, 1, 250)

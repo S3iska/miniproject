@@ -195,6 +195,68 @@ Error message is shown with invalid year
     Click Button  xpath=//div[@id='articleForm']//form//button
     Page Should Contain  ERROR: Year must be between
 
+
+Cancel Button Does Not Trigger a Warning on an Unchanged Add Ref Page
+    Go To Add Ref Page
+    Click Button  Cancel
+    Verify That This Is the Home Page
+
+
+Cancel Button Triggers a Warning on a Changed Add Ref Page
+    Go To Add Ref Page
+    Set Ref Type  article
+    Click Button  Cancel
+    Alert Should Be Present
+
+
+Fill Ref Fields with Inproceedings Doi
+    Go To Add Ref Page
+    Input Text  doi  10.1115/ht2012-58597
+    Click Button  Find
+    Sleep    3
+    ${selected} =  Get Selected List Value    id:typeSelect
+    Should Match    ${selected}    inproceedings
+    ${pages_value} =  Get Value    xpath=//div[@id='inproceedingsForm']//form//input[@name='pages']
+    Should Match    ${pages_value}     273-281
+    Page Should Not Contain    None
+
+
+Fill Ref Fields with Article Doi
+    Go To Add Ref Page
+    Input Text  doi  10.5555/12345678
+    Click Button  Find
+    Sleep    3
+    ${selected} =  Get Selected List Value    id:typeSelect
+    Should Match    ${selected}    article
+    ${pages_value} =  Get Value    xpath=//div[@id='articleForm']//form//input[@name='pages']
+    Should Match    ${pages_value}     1-3
+    Page Should Not Contain    None
+
+
+Fill Ref Fields with Book Doi
+    Go To Add Ref Page
+    Input Text  doi  10.1081/e-elis3
+    Click Button  Find
+    Sleep    3
+    ${selected} =  Get Selected List Value    id:typeSelect
+    Should Match    ${selected}    book
+    ${publisher_value} =  Get Value    xpath=//div[@id='bookForm']//form//input[@name='publisher']
+    Should Match    ${publisher_value}     CRC Press
+    Page Should Not Contain    None
+
+
+Invalid Doi Throws an Error
+    Go To Add Ref Page
+    Input Text    doi    10.1234/asdgbasd?
+    Click Button    Find
+    Page Should Contain    ERROR
+
+Unindexed Doi Throws an Error
+    Go To Add Ref Page
+    Input Text    doi    10.1234/asdgbasd
+    Click Button    Find
+    Page Should Contain    ERROR
+
 *** Keywords ***
 Set Ref type
     [Arguments]  ${type}
